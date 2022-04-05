@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -54,7 +55,7 @@
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo/logo.svg" alt="Logo">
+                                <img src="assets/images/logo.jpg" alt="Logo">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -112,7 +113,7 @@
     <!-- End Header Area -->
 
     <!-- Start Hero Area -->
-    <section class="hero-area overlay">
+    <section class="hero-area overlay" style="background-image: url('assets/images/hero-area.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1 col-md-12 col-12">
@@ -122,9 +123,10 @@
                             <h2 class="wow fadeInUp" data-wow-delay=".3s">Benvenuti sul nuovo e-commerce</h2>
                             <p class="wow fadeInUp" data-wow-delay=".5s">All'interno è possibile comprare qualsiasi prodotto un cliente abbia bisogno</p>
                         </div>
-                        <!-- End Search Form -->
+                        <!-- End Hero Text -->
                         <!-- Start Search Form -->
-                        <div class="search-form wow fadeInUp" data-wow-delay=".7s">
+                        <form action="login.html" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
+                        
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12 p-0">
                                     <div class="search-input">
@@ -153,7 +155,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
+                        </form>
                         <!-- End Search Form -->
                     </div>
                 </div>
@@ -169,121 +172,71 @@
                 <div class="row">
                     <div class="col-12 p-0">
                         <div class="category-slider">
+                            
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/car.svg" alt="#">
-                                </div>
-                                <h3>Vehicle</h3>
-                                <h5 class="total">35</h5>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Electronics'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/laptop.svg" alt="#">
                                 </div>
                                 <h3>Electronics</h3>
-                                <h5 class="total">22</h5>
                             </a>
                             <!-- End Single Category -->
+                            
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/matrimony.svg" alt="#">
-                                </div>
-                                <h3>Matrimony</h3>
-                                <h5 class="total">55</h5>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Furnitures'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/furniture.svg" alt="#">
                                 </div>
                                 <h3>Furnitures</h3>
-                                <h5 class="total">21</h5>
                             </a>
                             <!-- End Single Category -->
+                            
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/jobs.svg" alt="#">
-                                </div>
-                                <h3>Jobs</h3>
-                                <h5 class="total">44</h5>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/real-estate.svg" alt="#">
-                                </div>
-                                <h3>Real Estate</h3>
-                                <h5 class="total">65</h5>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/laptop.svg" alt="#">
-                                </div>
-                                <h3>Education</h3>
-                                <h5 class="total">35</h5>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Health & Beauty'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/hospital.svg" alt="#">
                                 </div>
                                 <h3>Health & Beauty</h3>
-                                <h5 class="total">22</h5>
                             </a>
                             <!-- End Single Category -->
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Fashion'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/tshirt.svg" alt="#">
                                 </div>
                                 <h3>Fashion</h3>
-                                <h5 class="total">25</h5>
                             </a>
                             <!-- End Single Category -->
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Education'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/education.svg" alt="#">
                                 </div>
                                 <h3>Education</h3>
-                                <h5 class="total">42</h5>
                             </a>
                             <!-- End Single Category -->
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Gadgets'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/controller.svg" alt="#">
                                 </div>
                                 <h3>Gadgets</h3>
-                                <h5 class="total">32</h5>
                             </a>
                             <!-- End Single Category -->
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Backpacks'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/travel.svg" alt="#">
                                 </div>
                                 <h3>Backpacks</h3>
-                                <h5 class="total">15</h5>
                             </a>
                             <!-- End Single Category -->
                             <!-- Start Single Category -->
-                            <a href="category.html" class="single-cat">
+                            <a href="category.php?name='Watches'" class="single-cat">
                                 <div class="icon">
                                     <img src="assets/images/categories/watch.svg" alt="#">
                                 </div>
                                 <h3>Watches</h3>
-                                <h5 class="total">65</h5>
                             </a>
                             <!-- End Single Category -->
                         </div>
@@ -300,9 +253,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Latest Products</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Ultimi prodotti</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Questi sono gli ultimi prodotti che sono stati aggiunti al magazzino</p>
                     </div>
                 </div>
             </div>
@@ -313,17 +265,11 @@
                         <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
                             <div class="image">
                                 <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img1.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-1.jpg" alt="#">
-                                            <span>Smith jeko</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
+                                
                             </div>
                             <div class="content">
                                 <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Mobile Phones</a>
+                                    <a href="product.php?name=''" class="tag">Mobile Phones</a>
                                     <h3 class="title">
                                         <a href="item-details.html">Apple Iphone X</a>
                                     </h3>
