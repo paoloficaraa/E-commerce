@@ -1,4 +1,4 @@
-
+<?php require_once("connection.php"); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -12,9 +12,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- Web Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
@@ -28,13 +26,6 @@
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
 
     <!-- Preloader -->
     <div class="preloader">
@@ -48,18 +39,16 @@
     <!-- /End Preloader -->
 
     <!-- Start Header Area -->
-    <header class="header navbar-area">
+    <header class="header navbar-area" >
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo.jpg" alt="Logo">
+                                <img src="assets/images/logo.jpg" alt="Logo" id="logo" style="width: 100px; height: 100px;">
                             </a>
-                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
@@ -67,20 +56,14 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a class=" active dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Home
+                                        <a class=" active dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" aria-label="Toggle navigation">Categories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Profile</a>
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Profile</a>
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
                                             <li class="single-block">
                                                 <ul>
@@ -96,11 +79,21 @@
                             </div> <!-- navbar collapse -->
                             <div class="login-button">
                                 <ul>
+                                    <?php
+                                        if(!isset($_SESSIO["user"])){
+                                            echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
+                                            <li><a href='register.php'><i class='lni lni-enter'></i>Register</a></li>";
+                                        }
+                                    ?>
                                     <li>
-                                        <a href="login.html"><i class="lni lni-enter"></i> Login</a>
+                                        <a href="cart.php" class="navbar-brand">
+                                            <img src="assets/images/cart.jpg" style="width: 40px; height:30px;">
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Register</a>
+                                        <a href="wishList.php" class="navbar-brand">
+                                            <img src="assets/images/heart.png" style="width: 30px; height:20px;">
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -125,8 +118,8 @@
                         </div>
                         <!-- End Hero Text -->
                         <!-- Start Search Form -->
-                        <form action="login.html" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
-                        
+                        <form action="" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
+
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12 p-0">
                                     <div class="search-input">
@@ -155,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </form>
                         <!-- End Search Form -->
                     </div>
@@ -172,73 +165,22 @@
                 <div class="row">
                     <div class="col-12 p-0">
                         <div class="category-slider">
-                            
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Electronics'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/laptop.svg" alt="#">
-                                </div>
-                                <h3>Electronics</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Furnitures'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/furniture.svg" alt="#">
-                                </div>
-                                <h3>Furnitures</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Health & Beauty'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/hospital.svg" alt="#">
-                                </div>
-                                <h3>Health & Beauty</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Fashion'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/tshirt.svg" alt="#">
-                                </div>
-                                <h3>Fashion</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Education'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/education.svg" alt="#">
-                                </div>
-                                <h3>Education</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Gadgets'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/controller.svg" alt="#">
-                                </div>
-                                <h3>Gadgets</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Backpacks'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/travel.svg" alt="#">
-                                </div>
-                                <h3>Backpacks</h3>
-                            </a>
-                            <!-- End Single Category -->
-                            <!-- Start Single Category -->
-                            <a href="category.php?name='Watches'" class="single-cat">
-                                <div class="icon">
-                                    <img src="assets/images/categories/watch.svg" alt="#">
-                                </div>
-                                <h3>Watches</h3>
-                            </a>
-                            <!-- End Single Category -->
+                            <?php
+                            $query = "SELECT * FROM categories";
+                            $result = $conn->query($query);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "
+                                        <a href='category.php?name=" . $row["name"] . "' class='single-cat'>
+                                            <div>
+                                                <img src='" . $row["thumbnail"] . "' alt='#' style='width:50px; height:50px'>
+                                            </div>
+                                            <h3>" . $row["name"] . "</h3>
+                                        </a>
+                                        ";
+                                }
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -248,260 +190,47 @@
     <!-- /End Categories Area -->
 
     <!-- Start Items Grid Area -->
-    <section class="items-grid section custom-padding">
+    <section class="items-grid section custom-padding" style="background-color: #DCDCDC;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Ultimi prodotti</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">Questi sono gli ultimi prodotti che sono stati aggiunti al magazzino</p>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Prodotti</h2>
                     </div>
                 </div>
             </div>
             <div class="single-head">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img1.jpg" alt="#"></a>
-                                
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="product.php?name=''" class="tag">Mobile Phones</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Apple Iphone X</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 1 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Feb 18, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$200.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".4s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img2.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-2.jpg" alt="#">
-                                            <span>Alex Jui</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Real Estate</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Amazing Room for Rent</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 2 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(20)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Dallas, Washington</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Jan 7, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$450.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".6s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img3.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-3.jpg" alt="#">
-                                            <span>Devid Milan</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                                <p class="item-position"><i class="lni lni-bolt"></i> Featured</p>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Mobile Phones</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Canon SX Powershot D-SLR</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 3 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(55)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Mar 18, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$700.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img4.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-4.jpg" alt="#">
-                                            <span>Jesia Jully</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Vehicles</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">BMW 5 Series GT Car</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 4 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Apr 12, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$1000.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".4s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img5.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-5.jpg" alt="#">
-                                            <span>Thomas Deco</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                                <p class="item-position"><i class="lni lni-bolt"></i> Featured</p>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Apple</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Apple Macbook Pro 13 Inch</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 5 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Louis, Missouri, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> May 25, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$550.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".6s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="assets/images/items-grid/img6.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="assets/images/items-grid/author-6.jpg" alt="#">
-                                            <span>Jonson zack</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Restaurant</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Cream Restaurant</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 7 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(20)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Feb 18, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$500.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
+                    <?php
+                    $sql = "SELECT * FROM products";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "
+                                    <div class='col-lg-4 col-md-6 col-12'>
+                                        <div class='single-grid wow fadeInUp' data-wow-delay='.2s'>
+                                            <div class='image'>
+                                                <a href='item-details.html' class='thumbnail'><img src=" . $row["thumbnail"] . " alt='#' style></a>
+                                            </div>
+                                            <div class='content'>
+                                                <div class='top-content'>
+                                                    <a href='' class='tag'>Mobile Phones</a>
+                                                    <h3 class='title'>
+                                                    <a href='item-details.html'>" . $row["Name"] . "</a>
+                                                    </h3>
+                                            </div>
+                                            <div class='bottom-content'>
+                                                <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
+                                                <a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>";
+                        }
+                    } else {
+                        header("index.php?mess=error");
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -516,47 +245,12 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-12">
                         <!-- Single Widget -->
-                        <div class="single-footer mobile-app">
-                            <h3>Mobile Apps</h3>
-                            <div class="app-button">
-                                <a href="javascript:void(0)" class="btn">
-                                    <i class="lni lni-play-store"></i>
-                                    <span class="text">
-                                        <span class="small-text">Get It On</span>
-                                        Google Play
-                                    </span>
-                                </a>
-                                <a href="javascript:void(0)" class="btn">
-                                    <i class="lni lni-apple"></i>
-                                    <span class="text">
-                                        <span class="small-text">Get It On</span>
-                                        App Store
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
+                                <div class="col-lg-3 col-md-3 col-6">
                                     <ul>
-                                        <li><a href="javascript:void(0)">Chicago</a></li>
-                                        <li><a href="javascript:void(0)">New York City</a></li>
-                                        <li><a href="javascript:void(0)">San Francisco</a></li>
-                                        <li><a href="javascript:void(0)">Washington</a></li>
-                                        <li><a href="javascript:void(0)">Boston</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Los Angeles</a></li>
-                                        <li><a href="javascript:void(0)">Seattle</a></li>
-                                        <li><a href="javascript:void(0)">Las Vegas</a></li>
-                                        <li><a href="javascript:void(0)">San Diego</a></li>
+                                        <li><a href="https://www.google.it/maps/place/22033+Asso+CO/@45.8625664,9.252113,14z/data=!3m1!4b1!4m5!3m4!1s0x47841e4d12da606f:0x56be7a35673a6fe5!8m2!3d45.8615294!4d9.2696622?hl=it">Asso</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -568,11 +262,9 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="javascript:void(0)">About Us</a></li>
-                                <li><a href="javascript:void(0)">How It's Works</a></li>
-                                <li><a href="javascript:void(0)">Login</a></li>
-                                <li><a href="javascript:void(0)">Signup</a></li>
-                                <li><a href="javascript:void(0)">Help & Support</a></li>
+                                <li><a href="">Login</a></li>
+                                <li><a href="">Signup</a></li>
+                                <li><a href="">Help & Support</a></li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->
@@ -582,8 +274,8 @@
                         <div class="single-footer f-contact">
                             <h3>Contact</h3>
                             <ul>
-                                <li>23 New Design Str, Lorem Upsum 10<br> Hudson Yards, USA</li>
-                                <li>Tel. +(123) 1800-567-8990 <br> Mail. support@classigrids.com</li>
+                                <li>Via per caslino 11, Asso</li>
+                                <li>Tel. 111 1111 1111 <br> Mail. ecommerce@gmail.com</li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->
@@ -600,20 +292,16 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="javascript:void(0)">Terms of use</a></li>
-                                    <li><a href="javascript:void(0)"> Privacy Policy</a></li>
-                                    <li><a href="javascript:void(0)">Advanced Search</a></li>
-                                    <li><a href="javascript:void(0)">Site Map</a></li>
-                                    <li><a href="javascript:void(0)">Information</a></li>
+                                    <li><a href="">Terms of use</a></li>
+                                    <li><a href=""> Privacy Policy</a></li>
+                                    <li><a href="">Advanced Search</a></li>
+                                    <li><a href="">Site Map</a></li>
+                                    <li><a href="">Information</a></li>
                                 </ul>
-                                <p class="copyright-text">Designed and Developed by <a href="https://graygrids.com/"
-                                        rel="nofollow" target="_blank">GrayGrids</a>
+                                <p class="copyright-text">Designed and Developed by <a href="" rel="nofollow" target="_blank">Ficara Paolo</a>
                                 </p>
                                 <ul class="footer-social">
-                                    <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
+                                    <li><a href="https://instagram.com"><i class="lni lni-instagram-filled"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -643,7 +331,7 @@
             items: 3,
             slideBy: 'page',
             autoplay: false,
-            mouseDrag: true,
+            mouseDrag: false,
             gutter: 0,
             nav: false,
             controls: true,

@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
 
-  <body background="">
+  <body>
     <!-- Preloader -->
     <div class="preloader">
       <div class="preloader-inner">
@@ -44,14 +44,14 @@
     </div>
     <!-- /End Preloader -->
 
-    <header class="header navbar-area" style="height: 80px">
+    <header class="header navbar-area">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-12">
             <div class="nav-inner">
               <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
-                  <img src="" alt="Logo"/>
+                <a class="navbar-brand" href="index.php">
+                  <img src="assets/images/logo.jpg" alt="Logo" id="logo" style="width: 100px; height: 100px;"/>
                 </a>
               </nav>
             </div>
@@ -60,14 +60,6 @@
       </div>
     </header>
 
-    <div class="preloader" style="opacity: 0; display: none">
-      <div class="preloader-inner">
-        <div class="preloader-icon">
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
     <div class="breadcrumbs">
       <div class="container">
         <div class="row align-items-center">
@@ -79,7 +71,7 @@
           <div class="col-lg-6 col-md-6 col-12">
             <ul class="breadcrumb-nav">
               <li>
-                <a href="index.html">Home</a>
+                <a href="index.php">Home</a>
               </li>
               <li>Login</li>
             </ul>
@@ -94,7 +86,7 @@
             <div class="form-head">
               <h4 class="title" style="text-align: center">Login</h4>
               <br />
-              <form action="" method="post">
+              <form action="" method="post" class="mt-4 form-text">
                 <div class="form-group" style="text-align: center">
                   <label style="font-size: large">Username</label>
                   <br />
