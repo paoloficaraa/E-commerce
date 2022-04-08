@@ -39,7 +39,7 @@
     <!-- /End Preloader -->
 
     <!-- Start Header Area -->
-    <header class="header navbar-area" >
+    <header class="header navbar-area">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
@@ -80,10 +80,10 @@
                             <div class="login-button">
                                 <ul>
                                     <?php
-                                        if(!isset($_SESSIO["user"])){
-                                            echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
+                                    if (!isset($_SESSIO["user"])) {
+                                        echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
                                             <li><a href='register.php'><i class='lni lni-enter'></i>Register</a></li>";
-                                        }
+                                    }
                                     ?>
                                     <li>
                                         <a href="cart.php" class="navbar-brand">
@@ -179,6 +179,8 @@
                                         </a>
                                         ";
                                 }
+                            } else {
+                                header("404.html");
                             }
                             ?>
                         </div>
@@ -206,15 +208,18 @@
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo "
+                            $query1 = "SELECT name FROM categories JOIN product_categories ON product_categories.categoryId = categories.Id WHERE product_categories.productId = " . $row["Id"];
+                            $nameCategory = $conn->query($query1)->fetch_assoc()["name"];
+                            if (isset($nameCategory)) {
+                                echo "
                                     <div class='col-lg-4 col-md-6 col-12'>
                                         <div class='single-grid wow fadeInUp' data-wow-delay='.2s'>
                                             <div class='image'>
-                                                <a href='item-details.html' class='thumbnail'><img src=" . $row["thumbnail"] . " alt='#' style></a>
+                                                <a href='item-details.html' class='thumbnail'><img src=" . $row["thumbnail"] . " alt='#'></a>
                                             </div>
                                             <div class='content'>
                                                 <div class='top-content'>
-                                                    <a href='' class='tag'>Mobile Phones</a>
+                                                    <a href='' class='tag'>$nameCategory</a>
                                                     <h3 class='title'>
                                                     <a href='item-details.html'>" . $row["Name"] . "</a>
                                                     </h3>
@@ -226,9 +231,13 @@
                                         </div>
                                         </div>
                                     </div>";
+                            } else {
+                                header("404.html");
+                                break;
+                            }
                         }
                     } else {
-                        header("index.php?mess=error");
+                        header("404.html");
                     }
                     ?>
                 </div>
