@@ -64,7 +64,7 @@ INSERT INTO `categories` (`Id`, `name`, `description`, `thumbnail`) VALUES
 (8, 'Watches', 'This category includes every type of watches', 'assets/images/categories/watch.svg');
 
 -- --------------------------------------------------------
-
+  
 --
 -- Struttura della tabella `order_details`
 --

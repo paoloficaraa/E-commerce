@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>ClassiGrids - Classified Ads and Listing Website Template.</title>
+    <title>E-Commerce</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
@@ -80,9 +80,9 @@
                             <div class="login-button">
                                 <ul>
                                     <?php
-                                    if (!isset($_SESSIO["user"])) {
+                                    if (!isset($_SESSIO["username"])) {
                                         echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
-                                            <li><a href='register.php'><i class='lni lni-enter'></i>Register</a></li>";
+                                            <li><a href='registration.php'><i class='lni lni-enter'></i>Register</a></li>";
                                     }
                                     ?>
                                     <li>

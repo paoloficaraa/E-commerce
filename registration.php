@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Login</title>
+    <title>Registration</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -88,13 +88,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Login</h1>
+                        <h1 class="page-title">Registration</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li>Login</li>
+                        <li>Registration</li>
                     </ul>
                 </div>
             </div>
@@ -107,9 +107,9 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
             <div class="form-head">
-              <h4 class="title" style="text-align: center">Login</h4>
+              <h4 class="title" style="text-align: center">Registration</h4>
               <br />
-              <form action="checkLogin.php" method="get" class="mt-4 form-text">
+              <form action="checkRegistration.php" method="post" class="mt-4 form-text">
                 <div class="form-group" style="text-align: center">
                   <label style="font-size: large">Username</label>
                   <br />
@@ -130,37 +130,10 @@
                   />
                 </div>
                 <br />
-                <div class="check-and-pass">
-                  <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6 col-12">
-                      <div class="form-check">
-                        <input
-                          type="checkbox"
-                          class="form-check-input width-auto"
-                          id="exampleCheck1"
-                        />
-                        <label class="form-check-label">Remember me</label>
-                      </div>
-                    </div>
-                    <div
-                      class="col-lg-6 col-md-6 col-12"
-                      style="text-align: right"
-                    >
-                      <a href="javascript:void(0)" class="lost-pass"
-                        >Lost your password?</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <br />
                 <div class="button" style="text-align: center">
-                  <button type="submit" class="btn">Login Now</button>
+                  <button type="submit" class="btn">Register Now</button>
                 </div>
-                <br />
-                <p class="outer-link">
-                  Don't have an account?
-                  <a href="registration.html">Register here</a>
-                </p>
+                <br>
               </form>
             </div>
           </div>
