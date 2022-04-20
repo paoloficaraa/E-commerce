@@ -109,7 +109,7 @@
             <div class="form-head">
               <h4 class="title" style="text-align: center">Login</h4>
               <br />
-              <form action="checkLogin.php" method="get" class="mt-4 form-text">
+              <form action="checkLogin.php" method="post" class="mt-4 form-text">
                 <div class="form-group" style="text-align: center">
                   <label style="font-size: large">Username</label>
                   <br />

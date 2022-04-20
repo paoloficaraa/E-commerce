@@ -1,4 +1,4 @@
-<?php require_once("connection.php"); ?>
+<?php require_once("connection.php"); session_start();?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -80,9 +80,11 @@
                             <div class="login-button">
                                 <ul>
                                     <?php
-                                    if (!isset($_SESSIO["username"])) {
+                                    if (!isset($_SESSION["username"])) {
                                         echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
                                             <li><a href='registration.php'><i class='lni lni-enter'></i>Register</a></li>";
+                                    } else {
+                                         echo "<li><a href='logout.php'><i class='lni lni-enter'></i>Logout</a></li>";
                                     }
                                     ?>
                                     <li>

@@ -3,19 +3,17 @@ include "connection.php";
 session_start();
 
 if(isset($_POST["username"]) && isset($_POST["password"])){
-    $query = "SELECT * FROM users WHERE Username LIKE '" . $_POST["username"] . "'";
+    $query = "SELECT Username, Password FROM users WHERE Username LIKE '" . $_POST["username"] . "'";
     $result = $conn->query($query);
 
     if($result->num_rows > 0){
-        $username = $result->fetch_assoc()["Username"];
-        $password = $result->fetch_assoc()["Password"];
-        echo $username . " " . $password;
-        if($username == $_POST["username"] && $password == md5($_POST["password"])){
-            $_SESSION["username"] = $username;
-            $_SESSION["password"] = $password;
-            //header("location:index.php?user=$username");
+        $array = $result->fetch_assoc();
+        if($array["Username"] == $_POST["username"] && $array["Password"] == md5($_POST["password"])){
+            $_SESSION["username"] = $array["Username"];
+            $_SESSION["password"] = $array["Password"];
+            header("location:index.php?user=" . $array["Username"]);
         } else {
-            //header("location:login.php?mess=Errore login");
+            header("location:login.php?mess=Errore login");
         }
     } else {
         header("location:404.html");
