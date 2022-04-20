@@ -1,4 +1,5 @@
-<?php require_once("connection.php"); session_start();?>
+<?php require_once("connection.php");
+session_start(); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -84,20 +85,19 @@
                                         echo "<li><a href='login.php'><i class='lni lni-enter'></i>Login</a></li>
                                             <li><a href='registration.php'><i class='lni lni-enter'></i>Register</a></li>";
                                     } else {
-                                         echo "<li><a href='logout.php'><i class='lni lni-enter'></i>Logout</a></li>";
+                                        echo "<li><a href='logout.php'><i class='lni lni-enter'></i>Logout</a></li>";
                                     }
                                     ?>
-                                    <li>
-                                        <a href="cart.php" class="navbar-brand">
-                                            <img src="assets/images/cart.jpg" style="width: 40px; height:30px;">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="wishList.php" class="navbar-brand">
-                                            <img src="assets/images/heart.png" style="width: 30px; height:20px;">
-                                        </a>
-                                    </li>
                                 </ul>
+                            </div>
+                            <div class="button">
+                                <a href="cart.php" class="navbar-brand">
+                                    <img src="assets/images/cart.jpg" style="width: 40px; height:30px;">
+                                </a>
+
+                                <a href="wishList.php" class="navbar-brand">
+                                    <img src="assets/images/heart.png" style="width: 30px; height:20px;">
+                                </a>
                             </div>
                         </nav> <!-- navbar -->
                     </div>
@@ -217,18 +217,18 @@
                                     <div class='col-lg-4 col-md-6 col-12'>
                                         <div class='single-grid wow fadeInUp' data-wow-delay='.2s'>
                                             <div class='image'>
-                                                <a href='item-details.html' class='thumbnail'><img src=" . $row["thumbnail"] . " alt='#'></a>
+                                                <a href='product.php?Id=" . $row["Id"] . "' class='thumbnail'><img src=" . $row["thumbnail"] . " alt='#'></a>
                                             </div>
                                             <div class='content'>
                                                 <div class='top-content'>
                                                     <a href='' class='tag'>$nameCategory</a>
                                                     <h3 class='title'>
-                                                    <a href='item-details.html'>" . $row["Name"] . "</a>
+                                                    <a href='product.php?Id=" . $row["Id"] . "'>" . $row["Name"] . "</a>
                                                     </h3>
                                             </div>
                                             <div class='bottom-content'>
                                                 <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
-                                                <a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>
+                                                /*<a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>*/
                                             </div>
                                         </div>
                                         </div>
