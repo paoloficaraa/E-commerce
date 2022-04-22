@@ -1,5 +1,15 @@
 <?php require_once("connection.php");
-session_start(); ?>
+session_start(); 
+
+require_once "cart.php";
+
+ob_start();
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    
+    $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
+}
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -210,10 +220,10 @@ session_start(); ?>
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            $query1 = "SELECT name FROM categories JOIN product_categories ON product_categories.categoryId = categories.Id WHERE product_categories.productId = " . $row["Id"];
-                            $nameCategory = $conn->query($query1)->fetch_assoc()["name"];
-                            if (isset($nameCategory)) {
-                                echo "
+                            $query1 = "SELECT * FROM categories JOIN product_categories ON product_categories.categoryId = categories.Id WHERE product_categories.productId = " . $row["Id"];
+                            $category = ($conn->query($query1))->fetch_assoc();
+                            if (isset($category["name"])) {
+                                $element = "
                                     <div class='col-lg-4 col-md-6 col-12'>
                                         <div class='single-grid wow fadeInUp' data-wow-delay='.2s'>
                                             <div class='image'>
@@ -221,25 +231,33 @@ session_start(); ?>
                                             </div>
                                             <div class='content'>
                                                 <div class='top-content'>
-                                                    <a href='' class='tag'>$nameCategory</a>
+                                                    <small>" . $category["name"] . "</small>
                                                     <h3 class='title'>
                                                     <a href='product.php?Id=" . $row["Id"] . "'>" . $row["Name"] . "</a>
                                                     </h3>
+                                                </div>
+                                                <center>
+                                                    <div class='btn'>
+                                                        <form action='' method='post'>
+                                                        <input type='hidden' name='productId' value='<?php echo" . $row["Id"] . "?>'>
+                                                        <button type='submit' name='addToCart' class='btn btn-primary form-control'>Add to cart</button>
+                                                        </form>
+                                                    </div>
+                                                </center>
+                                                <div class='bottom-content'>
+                                                    <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
+                                                    <a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>
+                                                </div>
                                             </div>
-                                            <div class='bottom-content'>
-                                                <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
-                                                /*<a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>*/
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>";
+                                    echo $element;
                             } else {
-                                header("404.html");
-                                break;
+                                header("location:404.html");
                             }
                         }
                     } else {
-                        header("404.html");
+                        header("location:404.html");
                     }
                     ?>
                 </div>

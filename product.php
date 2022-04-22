@@ -1,3 +1,14 @@
+<?php 
+session_start();
+require_once("connection.php"); 
+require_once "cart.php";
+ob_start();
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
+}
+?>
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -11,9 +22,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- Web Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
@@ -56,9 +65,7 @@
                             <a class="navbar-brand" href="index.html">
                                 <img src="assets/images/logo.jpg" alt="Logo" id="logo" style="width: 100px; height: 100px;">
                             </a>
-                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
@@ -66,10 +73,7 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Home</a>
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home</a>
                                         <ul class="sub-menu collapse" id="submenu-1-1">
                                             <li class="nav-item"><a href="index.html">Home Default</a></li>
                                             <li class="nav-item"><a href="javascript:void(0)">Home Version 2</a></li>
@@ -80,10 +84,7 @@
                                         <a href="javascript:void(0)" aria-label="Toggle navigation">Categories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-3"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Listings</a>
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Listings</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
                                             <li class="nav-item"><a href="javascript:void(0)">Ad Grid</a></li>
                                             <li class="nav-item"><a href="javascript:void(0)">Ad Listing</a></li>
@@ -91,10 +92,7 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class=" active dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Pages</a>
+                                        <a class=" active dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Pages</a>
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
                                             <li class="single-block">
                                                 <ul>
@@ -136,10 +134,7 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Blog</a>
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-5" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Blog</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="javascript:void(0)">Blog Grid Sidebar</a>
                                             </li>
@@ -199,22 +194,53 @@
     </div>
     <!-- End Breadcrumbs -->
 
-    <!-- Start Pricing Table Area -->
+    <!-- Start product Table Area -->
     <section id="product" class="py-3">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
                     <?php
-                        $query = "SELECT "
+                    $query = "SELECT * FROM products WHERE Id = " . $_GET["Id"];
+                    $result = $conn->query($query);
+                    $record;
+                    if ($result->num_rows > 0) {
+                        $record = $result->fetch_assoc();
+                        $thumbnail = $record["thumbnail"];
+                        $name = $record["Name"];
+                        echo "<img src='$thumbnail' class='img-fluid'>";
+                    }
                     ?>
+                    <div class="form-row pt-4 font-size-16 font-baloo">
+                        <div class="col">
+                            <button type="submit" class="btn btn-dark form-control">Proceed to buy</button>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <form action="" method="post">
+                                <input type="hidden" name="productId" value="<?php echo $record["Id"]?>">
+                                <button type="submit" name="addToCart" class="btn btn-primary form-control">Add to cart</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    
+                <div class="col-sm-6 py-5">
+                    <h5 class="font-baloo font-size-20">
+                        <?php if ($result->num_rows > 0) echo $name; ?>
+                    </h5>
+                    <small>by Jean Monnet</small>
+                    <hr class="m-0">
+
+                    <table class="my-3">
+                        <tr class="font-rale font-size-14">
+                            <td>Deal price:</td>
+                            <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
-    <!--/ End Pricing Table Area -->
+    <!--/ End product Table Area -->
 
     <!-- Start Footer Area -->
     <footer class="footer">
@@ -314,8 +340,7 @@
                                     <li><a href="javascript:void(0)">Site Map</a></li>
                                     <li><a href="javascript:void(0)">Information</a></li>
                                 </ul>
-                                <p class="copyright-text">Designed and Developed by <a href="https://graygrids.com/"
-                                        rel="nofollow" target="_blank">GrayGrids</a>
+                                <p class="copyright-text">Designed and Developed by <a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>
                                 </p>
                                 <ul class="footer-social">
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
