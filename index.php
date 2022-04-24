@@ -6,8 +6,8 @@ require_once "cart.php";
 ob_start();
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-    
-    $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
+    if(isset($_POST["btnAddToCart"]))
+        $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
 }
 ?>
 <!DOCTYPE html>
@@ -239,8 +239,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                                 <center>
                                                     <div class='btn'>
                                                         <form action='' method='post'>
-                                                        <input type='hidden' name='productId' value='<?php echo" . $row["Id"] . "?>'>
-                                                        <button type='submit' name='addToCart' class='btn btn-primary form-control'>Add to cart</button>
+                                                            <input type='hidden' name='productId' value='<?php echo" . $row["Id"] . "?>'>
+                                                            <button type='submit' name='addToCart' class='btn btn-primary form-control'>Add to cart</button>
                                                         </form>
                                                     </div>
                                                 </center>

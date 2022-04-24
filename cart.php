@@ -22,13 +22,18 @@ class Cart
 
     public function addToCart($userId, $productId, $quantity)
     {
-        if (isset($userId) && isset($productId) && isset($quantity)) {
-            $params = array("userId" => $userId, "productId" => $productId, "quantity"=>$quantity);
+        if (isset($userId) && isset($productId)) {
+            if(isset($quantity))
+                $params = array("userId" => $userId, "productId" => $productId, "quantity" => $quantity);
+            else 
+            $params = array("userId" => $userId, "productId" => $productId, "quantity" => 1);
+        } else if(!isset($userId)){
+            $_SESSION["cart"][] = array("productId" => $productId, "quantity" => $quantity);
         }
 
         $result = $this->insertIntoCart($params);
         if ($result) {
-            header("Location:" . $_SERVER['PHP_SELF']);
+            header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
         }
     }
 }

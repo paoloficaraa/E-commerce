@@ -1,11 +1,12 @@
-<?php 
+<?php
 session_start();
-require_once("connection.php"); 
+require_once("connection.php");
 require_once "cart.php";
 ob_start();
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST["btnAddToCart"]))
+        $Cart->addToCart($_SESSION["userId"], $_POST["productId"], $_POST["quantity"]);
 }
 ?>
 
@@ -62,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="index.php">
                                 <img src="assets/images/logo.jpg" alt="Logo" id="logo" style="width: 100px; height: 100px;">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,74 +74,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-1">
-                                            <li class="nav-item"><a href="index.html">Home Default</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Home Version 2</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Home Version 3</a></li>
-                                        </ul>
+                                        <a class=" dd-menu collapsed" href="index.php" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Categories</a>
+                                        <a href="category.php" aria-label="Toggle navigation">Categories</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Listings</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-3">
-                                            <li class="nav-item"><a href="javascript:void(0)">Ad Grid</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Ad Listing</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Ad Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class=" active dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Pages</a>
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Profile</a>
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
                                             <li class="single-block">
                                                 <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Ads Details</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Ads Post</a></li>
-                                                    <li class="nav-item active"><a href="pricing.html">Pricing Table</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Sign Up</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Sign In</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Contact Us</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">FAQ</a></li>
-                                                    <li class="nav-item"><a href="404.html">Error Page</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Mail Success</a>
-                                                    </li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Comming Soon</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Account Overview</a>
-                                                    </li>
                                                     <li class="nav-item"><a href="javascript:void(0)">My Profile</a>
                                                     </li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">My Ads</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Favorite Ads</a>
-                                                    </li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Ad post</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Bookmarked Ad</a>
-                                                    </li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Close account</a>
                                                     </li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Invoice</a></li>
                                                 </ul>
                                             </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-5" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Grid Sidebar</a>
-                                            </li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single
-                                                    Sibebar</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -185,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li>Product</li>
                     </ul>
                 </div>
@@ -210,32 +159,48 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         echo "<img src='$thumbnail' class='img-fluid'>";
                     }
                     ?>
-                    <div class="form-row pt-4 font-size-16 font-baloo">
-                        <div class="col">
-                            <button type="submit" class="btn btn-dark form-control">Proceed to buy</button>
-                        </div>
-                        <br>
-                        <div class="col">
-                            <form action="" method="post">
-                                <input type="hidden" name="productId" value="<?php echo $record["Id"]?>">
-                                <button type="submit" name="addToCart" class="btn btn-primary form-control">Add to cart</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-sm-6 py-5">
-                    <h5 class="font-baloo font-size-20">
-                        <?php if ($result->num_rows > 0) echo $name; ?>
-                    </h5>
-                    <small>by Jean Monnet</small>
-                    <hr class="m-0">
+                    <form action="product.php?Id=<?php echo $_GET["Id"]; ?>" method="post">
+                        <h5 class="font-baloo font-size-20">
+                            <?php if ($result->num_rows > 0) echo $name; ?>
+                        </h5>
+                        <small>by Jean Monnet</small>
+                        <hr class="m-0">
 
-                    <table class="my-3">
-                        <tr class="font-rale font-size-14">
-                            <td>Deal price:</td>
-                            <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
-                        </tr>
-                    </table>
+                        <table class="my-3">
+                            <tr class="font-rale font-size-14">
+                                <td>Deal price:</td>
+                                <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
+                            </tr>
+                            <tr class="font-rale font-size-14">
+                                <label for="quantity">Quantity</label>
+                                <select name="quantity" class="w-25 form-select">
+                                    <?php
+                                    if ($record["Quantity"] > 0) {
+                                        echo "<option selected value='1'>1</option>";
+                                        if ($record["Quantity"] > 1) {
+                                            for ($i = 2; $i <= $record["Quantity"]; $i++) {
+                                                echo "<option value='$i'>$i</option>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </tr>
+                        </table>
+                        <center>
+                            <div class="form w-50 pt-4 font-size-16 font-baloo">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-dark form-control">Buy now</button>
+                                    <br>
+                                    <br>
+                                    <input type="hidden" name="productId" value="<?php echo $record["Id"] ?>">
+                                    <button type="submit" name="btnAddToCart" class="btn btn-primary form-control ">Add to cart</button>
+                                </div>
+                            </div>
+                        </center>
+                    </form>
                 </div>
             </div>
         </div>
