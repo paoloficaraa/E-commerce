@@ -1,13 +1,14 @@
 <?php
 session_start();
 require_once("connection.php");
-require_once "cart.php";
+require_once "classCart.php";
 ob_start();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST["btnAddToCart"]))
         $Cart->addToCart($_SESSION["userId"], $_POST["productId"], $_POST["quantity"]);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- End Breadcrumbs -->
 
     <!-- Start product Table Area -->
-    <section id="product" class="py-3">
+    <section class="py-3">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -162,9 +163,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
                 <div class="col-sm-6 py-5">
                     <form action="product.php?Id=<?php echo $_GET["Id"]; ?>" method="post">
-                        <h5 class="font-baloo font-size-20">
+                        <h4 class="font-baloo font-size-20">
                             <?php if ($result->num_rows > 0) echo $name; ?>
-                        </h5>
+                        </h4>
                         <small>by Jean Monnet</small>
                         <hr class="m-0">
 
@@ -173,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <td>Deal price:</td>
                                 <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
                             </tr>
-                            <tr class="font-rale font-size-14">
+                            <tr class="font-size-14">
                                 <label for="quantity">Quantity</label>
                                 <select name="quantity" class="w-25 form-select">
                                     <?php
@@ -187,6 +188,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     }
                                     ?>
                                 </select>
+                            </tr>
+                            <tr class="font-baloo font-size-18">
+                                <td>
+                                    <h6>Description</h6>
+                                    <?php echo "<p>" . $record["Description"] . "</p>"; ?>
+                                </td>
                             </tr>
                         </table>
                         <center>

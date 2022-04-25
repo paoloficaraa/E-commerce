@@ -1,7 +1,7 @@
 <?php require_once("connection.php");
 session_start(); 
 
-require_once "cart.php";
+require_once "classCart.php";
 
 ob_start();
 
