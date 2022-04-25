@@ -39,6 +39,18 @@ class Cart
             header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
         }
     }
+
+    public function deleteProduct($userId = null, $productId = null, $table = "cart"){
+        if($productId != null && $userId != null){
+            $result = $this->conn->query("DELETE FROM $table WHERE productId = $productId AND userId = $userId");
+            if($result){
+                header("Location:" . $_SERVER['PHP_SELF']);
+            }
+            return $result;
+        } else if($userId == null){
+            
+        }
+    }
 }
 
 include "connection.php";

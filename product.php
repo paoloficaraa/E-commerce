@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center wow fadeInUp" data-wow-delay=".4s">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
                         <h1 class="page-title">Pricing Table</h1>
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- Start product Table Area -->
     <section class="py-3">
         <div class="container">
-            <div class="row">
+            <div class="row wow fadeInUp" data-wow-delay=".4s">
                 <div class="col-sm-6">
                     <?php
                     $query = "SELECT * FROM products WHERE Id = " . $_GET["Id"];

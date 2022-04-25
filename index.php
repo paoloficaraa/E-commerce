@@ -1,4 +1,5 @@
-<?php require_once("connection.php");
+<?php 
+require_once("connection.php");
 session_start(); 
 
 require_once "classCart.php";
@@ -7,7 +8,7 @@ ob_start();
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST["btnAddToCart"]))
-        $Cart->addToCart($_SESSION["userId"], $_POST["productId"],1);
+        $Cart->addToCart($_SESSION["userId"], $_POST["productId"], 1);
 }
 ?>
 <!DOCTYPE html>
@@ -108,7 +109,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 <a href="wishList.php" class="navbar-brand">
                                     <img src="assets/images/heart.png" style="width: 30px; height:20px;">
                                 </a>
-                            </div>
+                            </div> 
                         </nav> <!-- navbar -->
                     </div>
                 </div>
@@ -125,8 +126,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     <div class="hero-text text-center">
                         <!-- Start Hero Text -->
                         <div class="section-heading">
-                            <h2 class="wow fadeInUp" data-wow-delay=".3s">Benvenuti sul nuovo e-commerce</h2>
-                            <p class="wow fadeInUp" data-wow-delay=".5s">All'interno è possibile comprare qualsiasi prodotto un cliente abbia bisogno</p>
+                            <h2 class="wow fadeInUp" data-wow-delay=".3s">E-commerce Jean Monnet</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".5s">Are available all product that you need with just a click</p>
                         </div>
                         <!-- End Hero Text -->
                         <!-- Start Search Form -->
@@ -136,14 +137,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 <div class="col-lg-4 col-md-4 col-12 p-0">
                                     <div class="search-input">
                                         <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
-                                        <input type="text" name="keyword" id="keyword" placeholder="Prodotto">
+                                        <input type="text" name="keyword" id="keyword" placeholder="Product">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-12 p-0">
                                     <div class="search-input">
                                         <label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
                                         <select name="category" id="category">
-                                            <option value="none" selected disabled>Categorie</option>
+                                            <option value="none" selected disabled>Categories</option>
                                             <!--da aggiungere dinamicamente con phpp-->
                                         </select>
                                     </div>
@@ -151,12 +152,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 <div class="col-lg-3 col-md-3 col-12 p-0">
                                     <div class="search-input">
                                         <label for="price"><i class="lni lni-search-alt theme-color"></i></label>
-                                        <input type="number" name="price" id="price" placeholder="Prezzo">
+                                        <input type="number" name="price" id="price" placeholder="Price">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-12 p-0">
                                     <div class="search-btn button">
-                                        <button class="btn"><i class="lni lni-search-alt"></i> Cerca </button>
+                                        <button class="btn"><i class="lni lni-search-alt"></i>Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +210,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Prodotti</h2>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Products</h2>
                     </div>
                 </div>
             </div>
@@ -239,8 +240,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                                 <center>
                                                     <div class='btn'>
                                                         <form action='' method='post'>
-                                                            <input type='hidden' name='productId' value='<?php echo" . $row["Id"] . "?>'>
-                                                            <button type='submit' name='addToCart' class='btn btn-primary form-control'>Add to cart</button>
+                                                            <input type='hidden' name='productId' value='" . $row["Id"] . "'>
+                                                            <button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>
                                                         </form>
                                                     </div>
                                                 </center>

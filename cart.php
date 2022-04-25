@@ -18,6 +18,12 @@ if (isset($_SESSION["userId"])) {
 } else {
     $shoppingCart = $_SESSION["cart"];
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(isset($_POST["btnDelete"])){
+        $deleteRecord = $Cart->deleteProduct($_POST["productId"]);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +138,7 @@ if (isset($_SESSION["userId"])) {
     <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center wow fadeInUp" data-wow-delay=".4s">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
                         <h1 class="page-title">Cart</h1>
@@ -151,7 +157,7 @@ if (isset($_SESSION["userId"])) {
 
     <!-- Start Shopping cart section -->
     <section class="py-3">
-        <div class="container-fluid w-75">
+        <div class="container-fluid w-75 wow fadeInUp" data-wow-delay=".4s">
             <h5 class="font-baloo font-size-20">Shopping cart</h5>
             <!-- Cart item -->
             <div class="row">
@@ -188,13 +194,16 @@ if (isset($_SESSION["userId"])) {
                                             ?>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn font-baloo text-danger px-3 border-right">Delete</button>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="productId" value="<?php $product["Id"] ?? 0;?>">
+                                        <button type="submit" name="btnDelete" class="btn font-baloo text-danger px-3 border-right">Delete</button>
+                                    </form>
                                     <button type="submit" class="btn font-baloo text-primary">Wish list</button>
                                 </div>
                             </div>
                             <div class="col-sm-2 text-right">
                                 <div class="font-size-20 text-dark font-baloo">
-                                    ple<span class="product_price"><?php echo $product["Price"]; ?></span>
+                                    <span class="product_price"><?php echo $product["Price"]; ?> ple</span>
                                 </div>
                             </div>
                         </div>
@@ -204,12 +213,13 @@ if (isset($_SESSION["userId"])) {
                     <div class="sub-total border text-center mt-2">
                         <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE delivery</h6>
                         <div class="border-top py-4">
-                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count?> item)</h5>
+                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count ?> item)&nbsp; <span class="text-danger"><?php echo $subtotal ?> ple</span></h5>
+                            <button type="submit" class="btn btn-primary mt-3">Proceed to buy</button>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
 
         </div>
     </section>
