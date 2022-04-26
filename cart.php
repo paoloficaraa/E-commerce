@@ -21,7 +21,7 @@ if (isset($_SESSION["userId"])) {
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST["btnDelete"])){
-        $deleteRecord = $Cart->deleteProduct($_POST["productId"]);
+        $Cart->deleteProduct($_SESSION["userId"], $_POST["productId"]);
     }
 }
 ?>
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pricing Table - ClassiGrids Classified Ads and Listing Website Template</title>
+    <title>Cart</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
@@ -165,12 +165,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     <?php
                     $count = 0;
                     $subtotal = 0;
-                    foreach ($shoppingCart as $value) :
-                        $query = "SELECT * FROM products WHERE Id = " . $value["productId"];
-                        $result = $conn->query($query);
-                        $product = $result->fetch_assoc();
-                        $count++;
-                        $subtotal += $product["Price"] * $value["quantity"];
+                    if(isset($shoppingCart))
+                        foreach ($shoppingCart as $value) :
+                            $query = "SELECT * FROM products WHERE Id = " . $value["productId"];
+                            $result = $conn->query($query);
+                            $product = $result->fetch_assoc();
+                            $count++;
+                            $subtotal += $product["Price"] * $value["quantity"];
                     ?>
                         <div class="row border-top py-3 mt-3">
                             <div class="col-sm-2">
@@ -195,7 +196,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                         </select>
                                     </div>
                                     <form action="" method="post">
-                                        <input type="hidden" name="productId" value="<?php $product["Id"] ?? 0;?>">
+                                        <input type="hidden" name="productId" value="<?php echo $product["Id"];?>">
                                         <button type="submit" name="btnDelete" class="btn font-baloo text-danger px-3 border-right">Delete</button>
                                     </form>
                                     <button type="submit" class="btn font-baloo text-primary">Wish list</button>

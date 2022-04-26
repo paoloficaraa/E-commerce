@@ -27,28 +27,36 @@ class Cart
                 $params = array("userId" => $userId, "productId" => $productId, "quantity" => $quantity);
             else 
                 $params = array("userId" => $userId, "productId" => $productId, "quantity" => 1);
+            $result = $this->insertIntoCart($params);
+            if ($result) {
+                header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
+            }
         } else if(!isset($userId)){
             if(isset($quantity))
                 $_SESSION["cart"][] = array("productId" => $productId, "quantity" => $quantity);
             else
                 $_SESSION["cart"][] = array("productId" => $productId, "quantity" => 1);
-        }
-
-        $result = $this->insertIntoCart($params);
-        if ($result) {
-            header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
+            
+            if(isset($_SESSION["cart"])){
+                header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
+            }
         }
     }
 
-    public function deleteProduct($userId = null, $productId = null, $table = "cart"){
-        if($productId != null && $userId != null){
+    public function deleteProduct($userId, $productId = null, $table = "cart"){
+        if($productId != null && isset($userId)){
             $result = $this->conn->query("DELETE FROM $table WHERE productId = $productId AND userId = $userId");
             if($result){
                 header("Location:" . $_SERVER['PHP_SELF']);
             }
             return $result;
-        } else if($userId == null){
-            
+        } else if(!isset($userId) && $productId != null){
+            for($i = 0; $i < count($_SESSION["cart"]); $i++){
+                if($_SESSION["cart"][$i]["productId"] == $productId){
+                    unset($_SESSION["cart"][$i]);
+                    break;
+                }
+            }
         }
     }
 }

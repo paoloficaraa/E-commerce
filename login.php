@@ -159,7 +159,7 @@
                 <br />
                 <p class="outer-link">
                   Don't have an account?
-                  <a href="registration.html">Register here</a>
+                  <a href="registration.php">Register here</a>
                 </p>
               </form>
             </div>
