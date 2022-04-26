@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pricing Table - ClassiGrids Classified Ads and Listing Website Template</title>
+    <title>Product</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
@@ -34,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="index.js"></script>
 
 </head>
 
@@ -162,7 +165,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     ?>
                 </div>
                 <div class="col-sm-6 py-5">
-                    <form action="product.php?Id=<?php echo $_GET["Id"]; ?>" method="post">
+                    <?php if(isset($_SESSION["userId"])){
+                        echo "<form action='product.php?Id=" . $_GET["Id"] . "' method='post'>";
+                    } ?>
                         <h4 class="font-baloo font-size-20">
                             <?php if ($result->num_rows > 0) echo $name; ?>
                         </h4>
@@ -176,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </tr>
                             <tr class="font-size-14">
                                 <label for="quantity">Quantity</label>
-                                <select name="quantity" class="w-25 form-select">
+                                <select name="quantity" id="quantity" class="w-25 form-select">
                                     <?php
                                     if ($record["Quantity"] > 0) {
                                         echo "<option selected value='1'>1</option>";
@@ -202,12 +207,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     <button type="submit" class="btn btn-dark form-control">Buy now</button>
                                     <br>
                                     <br>
-                                    <input type="hidden" name="productId" value="<?php echo $record["Id"] ?>">
-                                    <button type="submit" name="btnAddToCart" class="btn btn-primary form-control ">Add to cart</button>
+                                    <input type='hidden' name='productId' value='<?php echo $record["Id"];?>'>
+                                    <?php 
+                                        if(isset($_SESSION["userId"])){
+                                            echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
+                                        } else 
+                                            echo "<button id='" . $record["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>";?>
                                 </div>
                             </div>
                         </center>
-                    </form>
+                    <?php if(isset($_SESSION["userId"])) echo "</form>";?>
                 </div>
             </div>
         </div>

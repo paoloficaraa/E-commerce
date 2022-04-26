@@ -27,16 +27,18 @@ class Cart
                 $params = array("userId" => $userId, "productId" => $productId, "quantity" => $quantity);
             else 
                 $params = array("userId" => $userId, "productId" => $productId, "quantity" => 1);
+                
             $result = $this->insertIntoCart($params);
             if ($result) {
                 header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
             }
         } else if(!isset($userId)){
-            if(isset($quantity))
+            if(isset($quantity)){
                 $_SESSION["cart"][] = array("productId" => $productId, "quantity" => $quantity);
-            else
+            } else {
                 $_SESSION["cart"][] = array("productId" => $productId, "quantity" => 1);
-            
+            }
+               
             if(isset($_SESSION["cart"])){
                 header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
             }
@@ -51,12 +53,12 @@ class Cart
             }
             return $result;
         } else if(!isset($userId) && $productId != null){
-            for($i = 0; $i < count($_SESSION["cart"]); $i++){
-                if($_SESSION["cart"][$i]["productId"] == $productId){
-                    unset($_SESSION["cart"][$i]);
-                    break;
-                }
-            }
+            // for($i = 0; $i < count($_SESSION["cart"]); $i++){
+            //     if($_SESSION["cart"][$i]["productId"] == $productId){
+            //         unset($_SESSION["cart"][$i]);
+            //         break;
+            //     }
+            // }
         }
     }
 }

@@ -35,6 +35,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+
 </head>
 
 <body>
@@ -220,6 +223,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     $sql = "SELECT * FROM products";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
+                        $item = 1;
                         while ($row = $result->fetch_assoc()) {
                             $query1 = "SELECT * FROM categories JOIN product_categories ON product_categories.categoryId = categories.Id WHERE product_categories.productId = " . $row["Id"];
                             $category = ($conn->query($query1))->fetch_assoc();
@@ -238,12 +242,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                                     </h3>
                                                 </div>
                                                 <center>
-                                                    <div class='btn'>
-                                                        <form action='' method='post'>
+                                                    <div class='btn'>";
+                                if(isset($_SESSION["userId"])){
+                                    $element .= "<form action='' method='post'>
                                                             <input type='hidden' name='productId' value='" . $row["Id"] . "'>
                                                             <button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>
-                                                        </form>
-                                                    </div>
+                                                        </form>";
+                                } else {
+                                    $element .= "<button id='" . $row["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>";
+                                }
+                                $element .= "</div>
                                                 </center>
                                                 <div class='bottom-content'>
                                                     <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
@@ -256,6 +264,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             } else {
                                 header("location:404.html");
                             }
+                            $item++;
                         }
                     } else {
                         header("location:404.html");

@@ -16,7 +16,8 @@ if (isset($_SESSION["userId"])) {
         }
     }
 } else {
-    $shoppingCart = $_SESSION["cart"];
+    $shoppingCart = $_COOKIE["shoppingCart"];
+    
 }
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -49,6 +50,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="index.js"></script>
 
 </head>
 
@@ -172,6 +176,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             $product = $result->fetch_assoc();
                             $count++;
                             $subtotal += $product["Price"] * $value["quantity"];
+                            print $_COOKIE["shoppingCart"];
                     ?>
                         <div class="row border-top py-3 mt-3">
                             <div class="col-sm-2">
