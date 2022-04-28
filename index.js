@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const shoppingCart = new Array();
 
-    Cookies.set("shoppingCart", JSON.stringify(shoppingCart));
+    //Cookies.set("shoppingCart", JSON.stringify(shoppingCart));
 
     $(".btn.btn-primary.form-control").click(function() {
         var productId = $(this).attr("id");
@@ -31,7 +31,7 @@ $(document).ready(function() {
         //     " " +
         //     shoppingCart[shoppingCart.length - 1].get("quantity") +
         //     "\n");
-        Cookies.set("shoppingCart", JSON.stringify(shoppingCart));
+        // Cookies.set("shoppingCart", JSON.stringify(shoppingCart));
     });
 
     function checkThereAlreadyIs(productId) {
@@ -43,7 +43,7 @@ $(document).ready(function() {
         return false;
     }
 
-    function setCookie(name, value) {
-        Cookies.set(escape(name), escape(value));
+    function createItemsCart(){
+        
     }
 });

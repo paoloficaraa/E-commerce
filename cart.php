@@ -162,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <h5 class="font-baloo font-size-20">Shopping cart</h5>
             <!-- Cart item -->
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-9" id="divCart" onload="<?php if(!isset($_SESSION["userId"])) echo "createItemsCart()";?>">
                 <?php if(isset($_SESSION["userId"])){
                      $count = 0;
                      $subtotal = 0;
@@ -195,7 +195,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                            $element .= "</select>
                            </div>
                            <form action='' method='post'>
-                               <input type='hidden' name='productId' value='" . $product["Id"] .">
+                               <input type='hidden' name='productId' value='" . $product["Id"] ."'>
                                <button type='submit' name='btnDelete' class='btn font-baloo text-danger px-3 border-right'>Delete</button>
                            </form>
                            <button type='submit' class='btn font-baloo text-primary'>Wish list</button>
