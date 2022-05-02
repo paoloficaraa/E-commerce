@@ -15,10 +15,24 @@ if (isset($_SESSION["userId"])) {
             $shoppingCart[] = array("productId" => $record["productId"], "quantity" => $record["quantity"]);
         }
     }
+} else {
+    foreach($_COOKIE["item"] as $item){
+        $productId = explode(" ", $item)[0];
+        $selectedQuantity = explode(" ", $item)[1];
+        $query = "SELECT * FROM products WHERE Id = $productId";
+        $result = $conn->query($query);
+        if($result->num_rows > 0){
+            //echo "<script>alert($selectedQuantity);</script>";
+            $product = $result->fetch_assoc();
+            $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
+        } else {
+            header("Location:404.html");
+        }
+    }
 }
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(isset($_POST["btnDelete"])){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST["btnDelete"])) {
         $Cart->deleteProduct($_SESSION["userId"], $_POST["productId"]);
     }
 }
@@ -162,63 +176,61 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <h5 class="font-baloo font-size-20">Shopping cart</h5>
             <!-- Cart item -->
             <div class="row">
-                <div class="col-sm-9" id="divCart" onload="<?php if(!isset($_SESSION["userId"])) echo "createItemsCart()";?>">
-                <?php if(isset($_SESSION["userId"])){
-                     $count = 0;
-                     $subtotal = 0;
-                     if(isset($shoppingCart)){
+                <div class="col-sm-9" id="divCart" onload="<?php if (!isset($_SESSION["userId"])) echo "createItemsCart()"; ?>">
+                    <?php
+                    $count = 0;
+                    $subtotal = 0;
+                    if (isset($shoppingCart)) {
                         foreach ($shoppingCart as $value) :
                             $query = "SELECT * FROM products WHERE Id = " . $value["productId"];
                             $result = $conn->query($query);
                             $product = $result->fetch_assoc();
                             $count++;
                             $subtotal += $product["Price"] * $value["quantity"];
+                    ?>
 
-                            $element .= "<div class='row border-top py-3 mt-3'>
-                            <div class='col-sm-2'>
-                                <img src='" . $product["thumbnail"] . "' alt='' style='height: 120px;' class='img-fluid'>
+                            <div class='row border-top py-3 mt-3'>
+                                <div class='col-sm-2'>
+                                    <img src='<?php echo $product["thumbnail"];?>' alt='' style='height: 120px;' class='img-fluid'>
+                                </div>
+                                <div class='col-sm-8'>
+                                    <h5 class='font-baloo font-size-20'><?php echo $product["Name"]; ?></h5>
+                                    <small>Jean Monnet</small>
+                                    <div class='qty d-flex pt-2'>
+                                        <div class='d-flex font-rale w-50'>
+                                            <select name='quantity' class='w-50 form-select'>";
+                                                <?php if ($product["Quantity"] > 0) {
+                                                    echo "<option selected value='" . $value["quantity"] . "'>Q.ty " . $value["quantity"] . "</option>";
+                                                    if ($product["Quantity"] > 1) {
+                                                        for ($i = 1; $i <= $product["Quantity"]; $i++) {
+                                                            echo "<option value='$i'>Q.ty $i</option>";
+                                                        }
+                                                    }
+                                                }
+                                                echo "</select>"; ?>
+                                        </div>
+                                        <form action='' method='post'>
+                                            <input type='hidden' name='productId' value='<?php echo $product["Id"]; ?>'>
+                                            <button type='submit' name='btnDelete' class='btn font-baloo text-danger px-3 border-right'>Delete</button>
+                                        </form>
+                                        <button type='submit' class='btn font-baloo text-primary'>Wish list</button>
+                                    </div>
+                                </div>
+                                <div class='col-sm-2 text-right'>
+                                    <div class='font-size-20 text-dark font-baloo'>
+                                        <span class='product_price'><?php echo $product["Price"]; ?> ple</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class='col-sm-8'>
-                                <h5 class='font-baloo font-size-20'>" . $product["Name"] . "</h5>
-                                <small>Jean Monnet</small>
-                                <div class='qty d-flex pt-2'>
-                                    <div class='d-flex font-rale w-50'>
-                                        <select name='quantity' class='w-50 form-select'>";
-                           if($product["Quantity"] > 0) {
-                               $element .= "<option selected value='" . $value["quantity"] . "'>Q.ty " . $value["quantity"] . "</option>";
-                               if ($product["Quantity"] > 1) {
-                                   for ($i = 1; $i <= $product["Quantity"]; $i++) {
-                                       $element .= "<option value='$i'>Q.ty $i</option>";
-                                   }
-                               }
-                           }
-                           $element .= "</select>
-                           </div>
-                           <form action='' method='post'>
-                               <input type='hidden' name='productId' value='" . $product["Id"] ."'>
-                               <button type='submit' name='btnDelete' class='btn font-baloo text-danger px-3 border-right'>Delete</button>
-                           </form>
-                           <button type='submit' class='btn font-baloo text-primary'>Wish list</button>
-                       </div>
-                   </div>
-                   <div class='col-sm-2 text-right'>
-                       <div class='font-size-20 text-dark font-baloo'>
-                           <span class='product_price'>" . $product["Price"] . " ple</span>
-                       </div>
-                   </div>
-               </div>";
-           endforeach;
-           echo $element;
-                     }
-                }
-                ?>
+                    <?php endforeach;
+                    } ?>
                 </div>
-                
+
                 <div class="col-sm-3">
                     <div class="sub-total border text-center mt-2">
                         <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE delivery</h6>
                         <div class="border-top py-4">
-                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count ?> item)&nbsp; <span class="text-danger"><?php echo $subtotal ?> ple</span></h5>
+                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count; ?> item)&nbsp; <span class="text-danger"><?php echo $subtotal; ?> ple</span></h5>
                             <button type="submit" class="btn btn-primary mt-3">Proceed to buy</button>
                         </div>
                     </div>

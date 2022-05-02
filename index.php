@@ -249,7 +249,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                                             <button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>
                                                         </form>";
                                 } else {
-                                    $element .= "<button id='" . $row["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>";
+                                    $element .= "<button id='" . $row["Id"] . "," . $row["Name"] . "," . $row["Description"] . "," . $row["Price"] . "," . $row["Quantity"] . "," . $row["thumbnail"] . "' class='btn btn-primary form-control'>Add to cart</button>";
                                 }
                                 $element .= "</div>
                                                 </center>

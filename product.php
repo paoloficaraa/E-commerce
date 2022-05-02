@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </tr>
                             <tr class="font-size-14">
                                 <label for="quantity">Quantity</label>
-                                <select name="quantity" id="quantity" class="w-25 form-select">
+                                <select name="quantity" id="selectedQuantity" class="w-25 form-select">
                                     <?php
                                     if ($record["Quantity"] > 0) {
                                         echo "<option selected value='1'>1</option>";
