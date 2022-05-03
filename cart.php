@@ -16,17 +16,19 @@ if (isset($_SESSION["userId"])) {
         }
     }
 } else {
-    foreach($_COOKIE["item"] as $item){
-        $productId = explode(" ", $item)[0];
-        $selectedQuantity = explode(" ", $item)[1];
-        $query = "SELECT * FROM products WHERE Id = $productId";
-        $result = $conn->query($query);
-        if($result->num_rows > 0){
-            //echo "<script>alert($selectedQuantity);</script>";
-            $product = $result->fetch_assoc();
-            $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
-        } else {
-            header("Location:404.html");
+    if(isset($_COOKIE["item"])){
+        foreach($_COOKIE["item"] as $item){
+            $productId = explode(" ", $item)[0];
+            $selectedQuantity = explode(" ", $item)[1];
+            $query = "SELECT * FROM products WHERE Id = $productId";
+            $result = $conn->query($query);
+            if($result->num_rows > 0){
+                //echo "<script>alert($selectedQuantity);</script>";
+                $product = $result->fetch_assoc();
+                $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
+            } else {
+                header("Location:404.html");
+            }
         }
     }
 }
@@ -36,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $Cart->deleteProduct($_SESSION["userId"], $_POST["productId"]);
     }
 }
+
+$_SESSION["cart"] = $shoppingCart;
+
 ?>
 
 <!DOCTYPE html>
@@ -231,7 +236,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE delivery</h6>
                         <div class="border-top py-4">
                             <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count; ?> item)&nbsp; <span class="text-danger"><?php echo $subtotal; ?> ple</span></h5>
-                            <button type="submit" class="btn btn-primary mt-3">Proceed to buy</button>
+                            <form action="" method="get">
+                                <button type="submit" class="btn btn-primary mt-3">Proceed to buy</button>
+                            </form>
                         </div>
                     </div>
                 </div>

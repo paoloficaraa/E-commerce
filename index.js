@@ -23,9 +23,11 @@ $(document).ready(function() {
         if (checkThereAlreadyIs(productId)) {
             for (var i = 0; i < shoppingCart.length; i++) {
                 if (shoppingCart[i].get("productId") == productId) {
-                    if (selectedQuantity != undefined)
-                        shoppingCart[i].get("selectedQuantity") = eval(shoppingCart[i].get("selectedQuantity")) + eval(selectedQuantity);
-                    else shoppingCart[i].get("selectedQuantity") += 1;
+                    if (selectedQuantity != undefined){
+                        shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + eval(selectedQuantity));
+                    } else {
+                        shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + 1);
+                    }
                 }
             }
         } else {
