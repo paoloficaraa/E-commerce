@@ -23,11 +23,12 @@ $(document).ready(function() {
         if (checkThereAlreadyIs(productId)) {
             for (var i = 0; i < shoppingCart.length; i++) {
                 if (shoppingCart[i].get("productId") == productId) {
-                    if (selectedQuantity != undefined){
+                    if (selectedQuantity != undefined) {
                         shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + eval(selectedQuantity));
                     } else {
                         shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + 1);
                     }
+                    set_cookie('item[' + productId + ']', productId + " " + shoppingCart[i].get("selectedQuantity"), 24 * 365 * 10);
                 }
             }
         } else {
