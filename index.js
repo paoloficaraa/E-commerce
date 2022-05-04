@@ -21,16 +21,26 @@ $(document).ready(function() {
         var selectedQuantity = $("#selectedQuantity").val();
 
         if (checkThereAlreadyIs(productId)) {
-            for (var i = 0; i < shoppingCart.length; i++) {
-                if (shoppingCart[i].get("productId") == productId) {
+            shoppingCart.forEach((item) => {
+                if (item.get("productId") == productId) {
                     if (selectedQuantity != undefined) {
-                        shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + eval(selectedQuantity));
+                        item.set("selectedQuantity", eval(item.get("selectedQuantity")) + eval(selectedQuantity));
                     } else {
-                        shoppingCart[i].set("selectedQuantity", eval(shoppingCart[i].get("selectedQuantity")) + 1);
+                        item.set("selectedQuantity", eval(item.get("selectedQuantity")) + 1);
                     }
-                    set_cookie('item[' + productId + ']', productId + " " + shoppingCart[i].get("selectedQuantity"), 24 * 365 * 10);
+                    set_cookie('item[' + productId + ']', productId + " " + item.get("selectedQuantity"), 24 * 365 * 10);
                 }
-            }
+            });
+            shoppingCart.forEach((item) => {
+                if (item.get("productId") == productId) {
+                    if (selectedQuantity != undefined) {
+                        item.set("selectedQuantity", eval(item.get("selectedQuantity")) + eval(selectedQuantity));
+                    } else {
+                        item.set("selectedQuantity", eval(item.get("selectedQuantity")) + 1);
+                    }
+                    set_cookie('item[' + productId + ']', productId + " " + item.get("selectedQuantity"), 24 * 365 * 10);
+                }
+            });
         } else {
             if (selectedQuantity != undefined) {
                 shoppingCart.push(new Map([
@@ -63,11 +73,11 @@ $(document).ready(function() {
     });
 
     function checkThereAlreadyIs(productId) {
-        for (var i = 0; i < shoppingCart.length; i++) {
-            if (shoppingCart[i].get("productId") == productId) {
+        shoppingCart.forEach((item) => {
+            if (item.get("productId") == productId) {
                 return true;
             }
-        }
+        });
         return false;
     }
 
@@ -98,4 +108,8 @@ $(document).ready(function() {
         date.setTime(date.getTime() + Number(hours) * 3600 * 1000);
         document.cookie = cookiename + "=" + cookievalue + "; path=/;expires = " + date.toGMTString();
     }
+
+    $(".w-50.form-select").change(function(){
+        $.ajax({uri:"ajax.php", type:"post", data:{itemId:$(this).data("id")}})
+    });
 });
