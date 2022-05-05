@@ -16,13 +16,13 @@ if (isset($_SESSION["userId"])) {
         }
     }
 } else {
-    if(isset($_COOKIE["item"])){
-        foreach($_COOKIE["item"] as $item){
+    if (isset($_COOKIE["item"])) {
+        foreach ($_COOKIE["item"] as $item) {
             $productId = explode(" ", $item)[0];
             $selectedQuantity = explode(" ", $item)[1];
             $query = "SELECT * FROM products WHERE Id = $productId";
             $result = $conn->query($query);
-            if($result->num_rows > 0){
+            if ($result->num_rows > 0) {
                 //echo "<script>alert($selectedQuantity);</script>";
                 $product = $result->fetch_assoc();
                 $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
@@ -144,7 +144,9 @@ $_SESSION["cart"] = $shoppingCart;
                             </div>
                             <div class="button">
                                 <a href="wishList.php" class="navbar-brand">
-                                    <img src="assets/images/heart.png" style="width: 30px; height:20px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
                                 </a>
                             </div>
                         </nav> <!-- navbar -->
@@ -196,14 +198,14 @@ $_SESSION["cart"] = $shoppingCart;
 
                             <div class='row border-top py-3 mt-3'>
                                 <div class='col-sm-2'>
-                                    <img src='<?php echo $product["thumbnail"];?>' alt='' style='height: 120px;' class='img-fluid'>
+                                    <img src='<?php echo $product["thumbnail"]; ?>' alt='' style='height: 120px;' class='img-fluid'>
                                 </div>
                                 <div class='col-sm-8'>
                                     <h5 class='font-baloo font-size-20'><?php echo $product["Name"]; ?></h5>
                                     <small>Jean Monnet</small>
                                     <div class='qty d-flex pt-2'>
                                         <div class='d-flex font-rale w-50'>
-                                            <select name='quantity' id='selectQuantity<?php echo $product['Id'];?>' class='w-50 form-select'>";
+                                            <select name='selectedQuantity<?php echo $product['Id']; ?>' data-id="<?php echo $product['Id']; ?>" class='w-50 form-select'>";
                                                 <?php if ($product["Quantity"] > 0) {
                                                     echo "<option selected value='" . $value["quantity"] . "'>Q.ty " . $value["quantity"] . "</option>";
                                                     if ($product["Quantity"] > 1) {
@@ -223,7 +225,7 @@ $_SESSION["cart"] = $shoppingCart;
                                 </div>
                                 <div class='col-sm-2 text-right'>
                                     <div class='font-size-20 text-dark font-baloo'>
-                                        <span class='product_price'><?php echo $product["Price"]; ?> ple</span>
+                                        <span class='product_price' data-id="<?php echo $product['Id']; ?>"><?php echo $product["Price"] * $value["quantity"]; ?> ple</span>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +237,7 @@ $_SESSION["cart"] = $shoppingCart;
                     <div class="sub-total border text-center mt-2">
                         <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE delivery</h6>
                         <div class="border-top py-4">
-                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count; ?> item)&nbsp; <span class="text-danger"><?php echo $subtotal; ?> ple</span></h5>
+                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count; ?> item)&nbsp; <span class="text-danger" id="cartPrice"><?php echo $subtotal; ?> ple</span></h5>
                             <form action="" method="get">
                                 <button type="submit" class="btn btn-primary mt-3">Proceed to buy</button>
                             </form>
@@ -283,13 +285,13 @@ $_SESSION["cart"] = $shoppingCart;
         <i class="lni lni-chevron-up"></i>
     </a>
 
-        <!-- ========================= JS here ========================= -->
+    <!-- ========================= JS here ========================= -->
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/tiny-slider.js"></script>
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/main.js"></script>
-    
+
 </body>
 
 </html>

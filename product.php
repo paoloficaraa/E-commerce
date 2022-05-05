@@ -112,11 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </div>
                             <div class="button">
                                 <a href="cart.php" class="navbar-brand">
-                                    <img src="assets/images/cart.jpg" style="width: 40px; height:30px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
                                 </a>
 
                                 <a href="wishList.php" class="navbar-brand">
-                                    <img src="assets/images/heart.png" style="width: 30px; height:20px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
                                 </a>
                             </div>
                         </nav> <!-- navbar -->
@@ -165,58 +169,58 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     ?>
                 </div>
                 <div class="col-sm-6 py-5">
-                    <?php if(isset($_SESSION["userId"])){
+                    <?php if (isset($_SESSION["userId"])) {
                         echo "<form action='product.php?Id=" . $_GET["Id"] . "' method='post'>";
                     } ?>
-                        <h4 class="font-baloo font-size-20">
-                            <?php if ($result->num_rows > 0) echo $name; ?>
-                        </h4>
-                        <small>by Jean Monnet</small>
-                        <hr class="m-0">
+                    <h4 class="font-baloo font-size-20">
+                        <?php if ($result->num_rows > 0) echo $name; ?>
+                    </h4>
+                    <small>by Jean Monnet</small>
+                    <hr class="m-0">
 
-                        <table class="my-3">
-                            <tr class="font-rale font-size-14">
-                                <td>Deal price:</td>
-                                <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
-                            </tr>
-                            <tr class="font-size-14">
-                                <label for="quantity">Quantity</label>
-                                <select name="quantity" id="selectedQuantity" class="w-25 form-select">
-                                    <?php
-                                    if ($record["Quantity"] > 0) {
-                                        echo "<option selected value='1'>1</option>";
-                                        if ($record["Quantity"] > 1) {
-                                            for ($i = 2; $i <= $record["Quantity"]; $i++) {
-                                                echo "<option value='$i'>$i</option>";
-                                            }
+                    <table class="my-3">
+                        <tr class="font-rale font-size-14">
+                            <td>Deal price:</td>
+                            <td class="font-size-20 text-danger">ple <span><?php echo $record["Price"] ?></span></td>
+                        </tr>
+                        <tr class="font-size-14">
+                            <label for="quantity">Quantity</label>
+                            <select name="quantity" id="selectedQuantity" class="w-25 form-select">
+                                <?php
+                                if ($record["Quantity"] > 0) {
+                                    echo "<option selected value='1'>1</option>";
+                                    if ($record["Quantity"] > 1) {
+                                        for ($i = 2; $i <= $record["Quantity"]; $i++) {
+                                            echo "<option value='$i'>$i</option>";
                                         }
                                     }
-                                    ?>
-                                </select>
-                            </tr>
-                            <tr class="font-baloo font-size-18">
-                                <td>
-                                    <h6>Description</h6>
-                                    <?php echo "<p>" . $record["Description"] . "</p>"; ?>
-                                </td>
-                            </tr>
-                        </table>
-                        <center>
-                            <div class="form w-50 pt-4 font-size-16 font-baloo">
-                                <div class="col">
-                                    <button type="submit" class="btn btn-dark form-control">Buy now</button>
-                                    <br>
-                                    <br>
-                                    <input type='hidden' name='productId' value='<?php echo $record["Id"];?>'>
-                                    <?php 
-                                        if(isset($_SESSION["userId"])){
-                                            echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
-                                        } else 
-                                            echo "<button id='" . $record["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>";?>
-                                </div>
+                                }
+                                ?>
+                            </select>
+                        </tr>
+                        <tr class="font-baloo font-size-18">
+                            <td>
+                                <h6>Description</h6>
+                                <?php echo "<p>" . $record["Description"] . "</p>"; ?>
+                            </td>
+                        </tr>
+                    </table>
+                    <center>
+                        <div class="form w-50 pt-4 font-size-16 font-baloo">
+                            <div class="col">
+                                <button type="submit" class="btn btn-dark form-control">Buy now</button>
+                                <br>
+                                <br>
+                                <input type='hidden' name='productId' value='<?php echo $record["Id"]; ?>'>
+                                <?php
+                                if (isset($_SESSION["userId"])) {
+                                    echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
+                                } else
+                                    echo "<button id='" . $record["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>"; ?>
                             </div>
-                        </center>
-                    <?php if(isset($_SESSION["userId"])) echo "</form>";?>
+                        </div>
+                    </center>
+                    <?php if (isset($_SESSION["userId"])) echo "</form>"; ?>
                 </div>
             </div>
         </div>
@@ -225,89 +229,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <!-- Start Footer Area -->
     <footer class="footer">
-        <!-- Start Footer Top -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer mobile-app">
-                            <h3>Mobile Apps</h3>
-                            <div class="app-button">
-                                <a href="javascript:void(0)" class="btn">
-                                    <i class="lni lni-play-store"></i>
-                                    <span class="text">
-                                        <span class="small-text">Get It On</span>
-                                        Google Play
-                                    </span>
-                                </a>
-                                <a href="javascript:void(0)" class="btn">
-                                    <i class="lni lni-apple"></i>
-                                    <span class="text">
-                                        <span class="small-text">Get It On</span>
-                                        App Store
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer f-link">
-                            <h3>Locations</h3>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Chicago</a></li>
-                                        <li><a href="javascript:void(0)">New York City</a></li>
-                                        <li><a href="javascript:void(0)">San Francisco</a></li>
-                                        <li><a href="javascript:void(0)">Washington</a></li>
-                                        <li><a href="javascript:void(0)">Boston</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Los Angeles</a></li>
-                                        <li><a href="javascript:void(0)">Seattle</a></li>
-                                        <li><a href="javascript:void(0)">Las Vegas</a></li>
-                                        <li><a href="javascript:void(0)">San Diego</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer f-link">
-                            <h3>Quick Links</h3>
-                            <ul>
-                                <li><a href="javascript:void(0)">About Us</a></li>
-                                <li><a href="javascript:void(0)">How It's Works</a></li>
-                                <li><a href="javascript:void(0)">Login</a></li>
-                                <li><a href="javascript:void(0)">Signup</a></li>
-                                <li><a href="javascript:void(0)">Help & Support</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer f-contact">
-                            <h3>Contact</h3>
-                            <ul>
-                                <li>23 New Design Str, Lorem Upsum 10<br> Hudson Yards, USA</li>
-                                <li>Tel. +(123) 1800-567-8990 <br> Mail. support@classigrids.com</li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/ End Footer Middle -->
-        <!-- Start Footer Bottom -->
         <div class="footer-bottom">
             <div class="container">
                 <div class="inner">
@@ -315,19 +236,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="javascript:void(0)">Terms of use</a></li>
-                                    <li><a href="javascript:void(0)"> Privacy Policy</a></li>
-                                    <li><a href="javascript:void(0)">Advanced Search</a></li>
-                                    <li><a href="javascript:void(0)">Site Map</a></li>
-                                    <li><a href="javascript:void(0)">Information</a></li>
+                                    <li><a href="">Terms of use</a></li>
+                                    <li><a href=""> Privacy Policy</a></li>
+                                    <li><a href="">Advanced Search</a></li>
+                                    <li><a href="">Site Map</a></li>
+                                    <li><a href="">Information</a></li>
                                 </ul>
-                                <p class="copyright-text">Designed and Developed by <a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>
+                                <p class="copyright-text">Designed and Developed by <a href="" rel="nofollow" target="_blank">Ficara Paolo</a>
                                 </p>
                                 <ul class="footer-social">
-                                    <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
+                                    <li><a href="https://instagram.com"><i class="lni lni-instagram-filled"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -335,7 +253,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
             </div>
         </div>
-        <!-- End Footer Middle -->
     </footer>
     <!--/ End Footer Area -->
 
