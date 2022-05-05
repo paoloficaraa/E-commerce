@@ -167,13 +167,45 @@
         </div>
       </div>
     </section>
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content">
+                                <ul class="footer-bottom-links">
+                                    <li><a href="">Terms of use</a></li>
+                                    <li><a href=""> Privacy Policy</a></li>
+                                    <li><a href="">Advanced Search</a></li>
+                                    <li><a href="">Site Map</a></li>
+                                    <li><a href="">Information</a></li>
+                                </ul>
+                                <p class="copyright-text">Designed and Developed by <a href="" rel="nofollow" target="_blank">Ficara Paolo</a>
+                                </p>
+                                <ul class="footer-social">
+                                    <li><a href="https://instagram.com"><i class="lni lni-instagram-filled"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ End Footer Area -->
+
     <a href="#" class="scroll-top btn-hover" style="display: flex">
       <i class="lni lni-chevron-up"></i>
     </a>
+
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/tiny-slider.js"></script>
     <script src="assets/js/glightbox.min.js"></script>
     <script src="assets/js/main.js"></script>
+    
   </body>
 </html>

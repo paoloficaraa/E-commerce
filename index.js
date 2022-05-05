@@ -109,7 +109,14 @@ $(document).ready(function() {
         document.cookie = cookiename + "=" + cookievalue + "; path=/;expires = " + date.toGMTString();
     }
 
-    $(".w-50.form-select").change(function(){
-        $.ajax({uri:"ajax.php", type:"post", data:{itemId:$(this).data("id")}})
+    $(".w-50.form-select").change(function() {
+        $.ajax({
+            uri: "ajax.php",
+            type: "post",
+            data: { itemId: $(this).data("id") },
+            success: function(product) {
+                console.log(product);
+            }
+        });
     });
 });
