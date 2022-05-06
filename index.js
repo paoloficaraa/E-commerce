@@ -123,12 +123,13 @@ $(document).ready(function() {
 
     $(".w-50.form-select").change(function() {
         let priceText = $(".product_price[data-id='" + $(this).data("id") + "']");
+        let that=this;
         $.post(
             "ajax.php", { itemid: $(this).data("id") },
             function(product) {
                 let json = $.parseJSON(product);
                 let price = json.Price;
-                var value = $(this).val();
+                var value = $(that).val();
                 priceText.text(parseInt(price * value).toFixed(2));
             });
     });
