@@ -12,6 +12,9 @@ if(isset($_POST["username"]) && isset($_POST["password"])){
         //echo "<script>window.top.location='registration.php?mess=username already exists'</script>";
         //ob_end_flush();
     } else {
+        if($_POST["username"] == "admin"){
+            header("location:registration.php?error=username not valid");
+        }
         $stmt = $conn->prepare("INSERT INTO users (Username, Password) VALUES (?, ?)");
         $password = md5($_POST["password"]);
         $stmt->bind_param("ss", $_POST["username"], $password);
@@ -21,7 +24,7 @@ if(isset($_POST["username"]) && isset($_POST["password"])){
         } else {
             echo "no";
             echo "%d row inserted.\n", $stmt->affected_rows;
-            echo "<form action='registration.php?mess=registration error' method='get'>
+            echo "<form action='registration.php?error=registration error' method='get'>
                 <input type='submit' value='go'>
             </form>";
             //header("registration.php?mess=registration error", true);   

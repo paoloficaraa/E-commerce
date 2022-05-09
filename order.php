@@ -1,47 +1,8 @@
 <?php
-
 session_start();
-require_once("connection.php");
-require_once "classCart.php";
-ob_start();
+require_once "connection.php";
 
-$shoppingCart;
 
-if (isset($_SESSION["userId"])) {
-    $query = "SELECT * FROM cart WHERE UserId = " . $_SESSION["userId"];
-    $result = $conn->query($query);
-    if ($result->num_rows > 0) {
-        while ($record = $result->fetch_assoc()) {
-            $shoppingCart[] = array("productId" => $record["productId"], "quantity" => $record["quantity"]);
-        }
-    }
-} else {
-    if (isset($_COOKIE["item"])) {
-        foreach ($_COOKIE["item"] as $item) {
-            $productId = explode(" ", $item)[0];
-            $selectedQuantity = explode(" ", $item)[1];
-            $query = "SELECT * FROM products WHERE Id = $productId";
-            $result = $conn->query($query);
-            if ($result->num_rows > 0) {
-                //echo "<script>alert($selectedQuantity);</script>";
-                $product = $result->fetch_assoc();
-                $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
-            } else {
-                header("Location:404.html");
-            }
-        }
-    }
-}
-
-$_SESSION["cart"] = $shoppingCart;
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST["btnDelete"])) {
-        $Cart->deleteProduct($_SESSION["userId"], $_POST["productId"]);
-    }
-}
-
-$_SESSION["cart"] = $shoppingCart;
 
 ?>
 
@@ -165,13 +126,14 @@ $_SESSION["cart"] = $shoppingCart;
             <div class="row align-items-center wow fadeInUp" data-wow-delay=".4s">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Cart</h1>
+                        <h1 class="page-title">Order</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.php">Home</a></li>
-                        <li>Shopping cart</li>
+                        <li><a href="cart.php">Shopping Cart</a></li>
+                        <li>Order</li>
                     </ul>
                 </div>
             </div>
@@ -182,20 +144,24 @@ $_SESSION["cart"] = $shoppingCart;
     <!-- Start Shopping cart section -->
     <section class="py-3">
         <div class="container-fluid w-75 wow fadeInUp" data-wow-delay=".4s">
-            <h5 class="font-baloo font-size-20">Shopping cart</h5>
+            <h5 class="font-baloo font-size-20">Order</h5>
             <!-- Cart item -->
             <div class="row">
-                <div class="col-sm-9" id="divCart">
+                <div class="col-sm-9">
                     <?php
                     $count = 0;
-                    $subtotal = 0;
-                    if (isset($shoppingCart)) {
-                        foreach ($shoppingCart as $value) :
+                    $total = 0;
+                    if (isset($_SESSION["cart"])) {
+                        foreach ($_SESSION["cart"] as $value) :
                             $query = "SELECT * FROM products WHERE Id = " . $value["productId"];
                             $result = $conn->query($query);
                             $product = $result->fetch_assoc();
                             $count++;
-                            $subtotal += $product["Price"] * $value["quantity"];
+                            if (isset($_COOKIE["quantity" . $product["Id"]])) {
+                                $total += $product["Price"] * $_COOKIE["quantity" . $product["Id"]];
+                            } else {
+                                $total += $product["Price"] * $value["quantity"];
+                            }
                     ?>
 
                             <div class='row border-top py-3 mt-3'>
@@ -207,33 +173,32 @@ $_SESSION["cart"] = $shoppingCart;
                                     <small>Jean Monnet</small>
                                     <div class='qty d-flex pt-2'>
                                         <div class='d-flex font-rale w-50'>
-                                            <select name='selectedQuantity' data-id="<?php echo $product['Id']; ?>" class='w-50 form-select'>";
+                                            <select name='selectedQuantity' data-id="<?php echo $product['Id']; ?>" class='w-50 form-select' disabled>
                                                 <?php
-                                                if ($product["Quantity"] > 0) {
-                                                    if (isset($_COOKIE["quantity" . $product["Id"]])) {
-                                                        echo "<option selected value='" . $_COOKIE["quantity" . $product["Id"]] . "'>Q.ty " . $_COOKIE["quantity" . $product["Id"]] . "</option>";
-                                                    } else {
+                                                if (isset($_COOKIE["quantity" . $product["Id"]])) {
+                                                    echo "<option selected value='" . $_COOKIE["quantity" . $product["Id"]] . "'>Q.ty " . $_COOKIE["quantity" . $product["Id"]] . "</option>";
+                                                } else {
+                                                    if ($product["Quantity"] > 0) {
                                                         echo "<option selected value='" . $value["quantity"] . "'>Q.ty " . $value["quantity"] . "</option>";
-                                                    }
-                                                    if ($product["Quantity"] > 1) {
-                                                        for ($i = 1; $i <= $product["Quantity"]; $i++) {
-                                                            echo "<option value='$i'>Q.ty $i</option>";
+                                                        if ($product["Quantity"] > 1) {
+                                                            for ($i = 1; $i <= $product["Quantity"]; $i++) {
+                                                                echo "<option value='$i'>Q.ty $i</option>";
+                                                            }
                                                         }
                                                     }
-                                                }
-                                                ?>
+                                                } ?>
                                             </select>
                                         </div>
-                                        <form action='' method='post'>
-                                            <input type='hidden' name='productId' value='<?php echo $product["Id"]; ?>'>
-                                            <button type='submit' name='btnDelete' class='btn font-baloo text-danger px-3 border-right'>Delete</button>
-                                        </form>
-                                        <button type='submit' class='btn font-baloo text-primary'>Wish list</button>
                                     </div>
                                 </div>
                                 <div class='col-sm-2 text-right'>
                                     <div class='font-size-20 text-dark font-baloo'>
-                                        <span class='product_price' data-id="<?php echo $product['Id']; ?>"><?php echo $product["Price"] * $value["quantity"]; ?> ple</span>
+                                        <span class='product_price' data-id="<?php echo $product['Id']; ?>"><?php
+                                                                                                            if (isset($_COOKIE["quantity" . $product["Id"]])) {
+                                                                                                                echo $product["Price"] * $_COOKIE["quantity" . $product["Id"]];
+                                                                                                            } else {
+                                                                                                                echo $product["Price"] * $value["quantity"];
+                                                                                                            } ?> ple</span>
                                     </div>
                                 </div>
                             </div>
@@ -245,9 +210,10 @@ $_SESSION["cart"] = $shoppingCart;
                     <div class="sub-total border text-center mt-2">
                         <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE delivery</h6>
                         <div class="border-top py-4">
-                            <h5 class="font-baloo font-size-20">Subtotal (<?php echo $count; ?> item)&nbsp; <span class="text-danger" id="cartPrice"><?php echo $subtotal; ?> ple</span></h5>
-                            <form action="order.php" method="get">
-                                <button type="submit" class="btn btn-primary mt-3">Proceed to order</button>
+                            <h5 class="font-baloo font-size-20">Total (<?php echo $count; ?> item)&nbsp; <span class="text-danger"><?php echo $total;?> ple</span></h5>
+                            <form action="checkOrder.php" method="post">
+                                <input type="hidden" name="total" value="<?php echo $total?>">
+                                <button type="submit" class="btn btn-primary mt-3">Buy now</button>
                             </form>
                         </div>
                     </div>

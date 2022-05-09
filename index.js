@@ -13,39 +13,19 @@ $(document).ready(function() {
         var thumbnail = array[5];
         var selectedQuantity = $("#selectedQuantity").val();
 
-        if (checkThereAlreadyIs(productId)) {
+        if (checkAlreadyIn(productId)) {
+            console.log("dentro");
             shoppingCart.forEach((item) => {
                 if (item.get("productId") == productId) {
                     if (selectedQuantity != undefined) {
                         item.set(
                             "selectedQuantity",
-                            eval(item.get("selectedQuantity")) + eval(selectedQuantity)
+                            parseInt(item.get("selectedQuantity")) + parseInt(selectedQuantity)
                         );
                     } else {
                         item.set(
                             "selectedQuantity",
-                            eval(item.get("selectedQuantity")) + 1
-                        );
-                    }
-                    set_cookie(
-                        "item[" + productId + "]",
-                        productId + " " + item.get("selectedQuantity"),
-                        24 * 365 * 10
-                    );
-                }
-            });
-            shoppingCart.forEach((item) => {
-                if (item.get("productId") == productId) {
-                    if (selectedQuantity != undefined) {
-                        item.set(
-                            "selectedQuantity",
-                            eval(item.get("selectedQuantity")) + eval(selectedQuantity)
-                        );
-                    } else {
-                        item.set(
-                            "selectedQuantity",
-                            eval(item.get("selectedQuantity")) + 1
-                        );
+                            (parseInt(item.get("selectedQuantity")) + 1))
                     }
                     set_cookie(
                         "item[" + productId + "]",
@@ -92,18 +72,11 @@ $(document).ready(function() {
                 );
             }
         }
-        console.log("added");
-        console.log(
-            shoppingCart[shoppingCart.length - 1].get("productId") +
-            " " +
-            shoppingCart[shoppingCart.length - 1].get("selectedQuantity") +
-            "\n"
-        );
     });
 
-    function checkThereAlreadyIs(productId) {
-        shoppingCart.forEach((item) => {
-            if (item.get("productId") == productId) {
+    function checkAlreadyIn(id) {
+        shoppingCart.forEach(item => {
+            if (item.get("productId") == id) {
                 return true;
             }
         });
@@ -121,16 +94,38 @@ $(document).ready(function() {
             date.toGMTString();
     }
 
+    function getCookie(cName) {
+        const name = cName + "=";
+        const cDecoded = decodeURIComponent(document.cookie); //to be careful
+        const cArr = cDecoded.split('; ');
+        let res;
+        cArr.forEach(val => {
+            if (val.indexOf(name) === 0) res = val.substring(name.length);
+        })
+        return res;
+    }
+
     $(".w-50.form-select").change(function() {
+        set_cookie("quantity" + $(this).data("id") + "", $(this).val(), 24 * 365 * 10);
+        console.log(getCookie("quantity" + $(this).data("id") + ""));
+
         let priceText = $(".product_price[data-id='" + $(this).data("id") + "']");
-        let that=this;
+        let that = this;
         $.post(
             "ajax.php", { itemid: $(this).data("id") },
             function(product) {
                 let json = $.parseJSON(product);
                 let price = json.Price;
                 var value = $(that).val();
-                priceText.text(parseInt(price * value).toFixed(2));
+                priceText.text(parseInt(price * value) + " ple");
+                let subtotal = 0;
+                const array = $(".product_price");
+                Array.prototype.forEach.call(array, price => {
+                    // Write your code here
+                    const s = $(price).text().split(' ');
+                    subtotal += parseInt(s[0]);
+                });
+                $("#cartPrice").text(subtotal + " ple");
             });
     });
 });
