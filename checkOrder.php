@@ -8,6 +8,12 @@ if (isset($_SESSION["cart"])) {
         $userId = $_SESSION["userId"];
     else
         $userId = 0;
+    
+    if($userId == 0){
+        echo "<script>alert('You have to log in');</script>";
+        header("location:index.php");
+    }
+    
     $total = $_POST["total"];
     $insertOrder->bind_param("si", $userId, $total);
 
