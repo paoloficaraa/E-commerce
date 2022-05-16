@@ -11,27 +11,27 @@ if (isset($_SESSION["cart"])) {
     $total = $_POST["total"];
     $insertOrder->bind_param("si", $userId, $total);
 
-    // if ($insertOrder->execute() === true) {
-    //     $query = "SELECT LAST(Id) FROM order_details";
-    //     $result = $conn->query($query);
-    //     $id = 0;
-    //     if ($result->num_rows > 0) {
-    //         $id = $result->fetch_assoc();
-    //         foreach ($_SESSION["cart"] as $value) {
-    //             $insertOrder2 = $conn->prepare("INSERT INTO order_items (OrderId, productId, quantity)");
-    //             $insertOrder2->bind_param("iii", $id, $value["productId"], $value["quantity"]);
-    //             if ($insertOrder2->execute() === true) {
-    //                 header("location:index.php?mess=the order has been successfully");
-    //             } else {
-    //                 echo "<script>alert('error order 2');</script>";
-    //             }
-    //         }
-    //     } else {
-    //         echo "<script>alert('error id');</script>";
-    //     }
-    // } else {
-    //     echo "<script>alert('error order 1');</script>";
-    // }
+    if ($insertOrder->execute() === true) {
+        $query = "SELECT Id FROM order_details ORDER BY Id DESC LIMIT 1;";
+        $result = $conn->query($query);
+        $id = 0;
+        if ($result->num_rows > 0) {
+            $id = $result->fetch_assoc()["Id"];
+            foreach ($_SESSION["cart"] as $value) {
+                $insertOrder2 = $conn->prepare("INSERT INTO order_items (OrderId, productId, quantity) VALUES (?, ?, ?)");
+                $insertOrder2->bind_param("iii", $id, $value["productId"], $value["quantity"]);
+                if ($insertOrder2->execute() === true) {
+                    header("location:index.php?mess=the order has been successfully");
+                } else {
+                    echo "<script>alert('error order 2');</script>";
+                }
+            }
+        } else {
+            echo "<script>alert('error id');</script>";
+        }
+    } else {
+        echo "<script>alert('error order 1');</script>";
+    }
 } else {
     echo "<script>alert('error');</script>";
 }
