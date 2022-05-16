@@ -4,16 +4,16 @@ session_start();
 
 if (isset($_SESSION["cart"])) {
     $insertOrder = $conn->prepare("INSERT INTO order_details (UserId, Total) VALUES (?, ?)");
+    $userId = 0;
     if(isset($_SESSION["userId"]))
         $userId = $_SESSION["userId"];
-    else
-        $userId = 0;
     
     if($userId == 0){
         echo "<script>alert('You have to log in');</script>";
-        header("location:index.php");
+        header("location:index.php?mess=error_user");
+        exit;
     }
-    
+
     $total = $_POST["total"];
     $insertOrder->bind_param("si", $userId, $total);
 
@@ -27,6 +27,8 @@ if (isset($_SESSION["cart"])) {
                 $insertOrder2 = $conn->prepare("INSERT INTO order_items (OrderId, productId, quantity) VALUES (?, ?, ?)");
                 $insertOrder2->bind_param("iii", $id, $value["productId"], $value["quantity"]);
                 if ($insertOrder2->execute() === true) {
+                    $conn->query("UPDATE products SET Quantity = Quantity - " . $value["quantity"] . " WHERE Id = " . $value["productId"]);
+                    $conn->query("DELETE FROM cart WHERE userId = " . $_SESSION["userId"]);
                     header("location:index.php?mess=the order has been successfully");
                 } else {
                     echo "<script>alert('error order 2');</script>";

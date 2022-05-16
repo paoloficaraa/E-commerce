@@ -128,4 +128,19 @@ $(document).ready(function() {
                 $("#cartPrice").text(subtotal + " ple");
             });
     });
+
+    $("#updateQuantity").change(function() {
+        let quantity = $(this).val()
+        let productId = $(this).data("id")
+        $.post("updateQuantityItem.php", { itemid: productId, quantity: quantity },
+            function(result) {
+                let json = $.parseJSON(result)
+                let status = json.status
+                if (status == "error") {
+                    alert("error during the update")
+                }
+            }
+        );
+    })
+
 });

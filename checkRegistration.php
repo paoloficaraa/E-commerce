@@ -3,6 +3,10 @@ include "connection.php";
 //session_start();
 
 if(isset($_POST["username"]) && isset($_POST["password"])){
+    if($_POST["username"] == "admin"){
+        echo "<script>alert('Username not valid')</script>";
+        header("location:registration.php");
+    }
     $query = "SELECT * FROM users WHERE Username LIKE '" . $_POST["username"] . "'";
     $result = $conn->query($query);
     if($result->num_rows > 0){

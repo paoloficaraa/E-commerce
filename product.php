@@ -7,6 +7,12 @@ ob_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST["btnAddToCart"]))
         $Cart->addToCart($_SESSION["userId"], $_POST["productId"], $_POST["quantity"]);
+    if (isset($_POST["btnDeleteItem"])) {
+        $conn->query("DELETE FROM products WHERE Id = " . $_POST["productId"]);
+    }
+    if (isset($_POST["btnSave"])) {
+        header("Location:" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING']);
+    }
 }
 
 ?>
@@ -185,18 +191,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </tr>
                         <tr class="font-size-14">
                             <label for="quantity">Quantity</label>
-                            <select name="quantity" id="selectedQuantity" class="w-25 form-select">
-                                <?php
+                            <?php
+                            if ($_SESSION["username"] == "admin") {
+                                echo "<input type='number' id='updateQuantity' data-id='" . $record["Id"] . "' class='form-control w-25'>";
+                            } else {
+                                $select = "<select name='quantity' id='selectedQuantity' class='w-25 form-select'>";
                                 if ($record["Quantity"] > 0) {
-                                    echo "<option selected value='1'>1</option>";
+                                    $select .= "<option selected value='1'>1</option>";
                                     if ($record["Quantity"] > 1) {
                                         for ($i = 2; $i <= $record["Quantity"]; $i++) {
-                                            echo "<option value='$i'>$i</option>";
+                                            $select .= "<option value='$i'>$i</option>";
                                         }
                                     }
                                 }
-                                ?>
-                            </select>
+                                $select .= "</select>";
+                                echo $select;
+                            }
+                            ?>
+
                         </tr>
                         <tr class="font-baloo font-size-18">
                             <td>
@@ -208,13 +220,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <center>
                         <div class="form w-50 pt-4 font-size-16 font-baloo">
                             <div class="col">
-                                <button type="submit" class="btn btn-dark form-control">Buy now</button>
+                                <?php
+                                if ($_SESSION["username"] != "admin") {
+                                    echo "<button type='submit' name='btnBuyNow' class='btn btn-dark form-control'>Buy now</button>";
+                                } else {
+                                    echo "<button type='submit' name='btnSave' class='btn btn-dark form-control'>Save</button>";
+                                }
+                                ?>
                                 <br>
                                 <br>
                                 <input type='hidden' name='productId' value='<?php echo $record["Id"]; ?>'>
                                 <?php
                                 if (isset($_SESSION["userId"])) {
-                                    echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
+                                    if ($_SESSION["username"] == "admin") {
+                                        echo "<button type='submit' name='btnDeleteItem' class='btn btn-danger form-control'>Delete</button>";
+                                    } else {
+                                        echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
+                                    }
                                 } else
                                     echo "<button id='" . $record["Id"] . "' class='btn btn-primary form-control'>Add to cart</button>"; ?>
                             </div>

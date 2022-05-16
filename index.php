@@ -9,6 +9,9 @@ ob_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST["btnAddToCart"]))
         $Cart->addToCart($_SESSION["userId"], $_POST["productId"], 1);
+    if (isset($_POST["btnDeleteItem"])) {
+        $conn->query("DELETE FROM products WHERE Id = " . $_POST["productId"]);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -34,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="index.js"></script>
@@ -116,6 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                                     </svg>
                                 </a>
+                                <?php
+                                if ($_SESSION["username"] == "admin") {
+                                    echo "<a href='addProduct.php'><i class='bi bi-box-arrow-in-up'></i></a>";
+                                }
+                                ?>
                             </div>
                         </nav> <!-- navbar -->
                     </div>
@@ -249,9 +259,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                     <div class='btn'>";
                                 if (isset($_SESSION["userId"])) {
                                     $element .= "<form action='' method='post'>
-                                                            <input type='hidden' name='productId' value='" . $row["Id"] . "'>
-                                                            <button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>
-                                                        </form>";
+                                                            <input type='hidden' name='productId' value='" . $row["Id"] . "'>";
+                                    if ($_SESSION["username"] == "admin") {
+                                        $element .= "<button type='submit' name='btnDeleteItem' class='btn btn-danger form-control'>Delete</button>";
+                                    } else {
+                                        $element .= "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";
+                                    }
+                                    $element .= "</form>";
                                 } else {
                                     $element .= "<button id='" . $row["Id"] . "," . $row["Name"] . "," . $row["Description"] . "," . $row["Price"] . "," . $row["Quantity"] . "," . $row["thumbnail"] . "' class='btn btn-primary form-control'>Add to cart</button>";
                                 }

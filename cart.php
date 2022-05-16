@@ -26,8 +26,6 @@ if (isset($_SESSION["userId"])) {
                 //echo "<script>alert($selectedQuantity);</script>";
                 $product = $result->fetch_assoc();
                 $shoppingCart[] = array("productId" => $product["Id"], "quantity" => $selectedQuantity);
-            } else {
-                header("Location:404.html");
             }
         }
     }
