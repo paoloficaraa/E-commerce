@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <tr class="font-size-14">
                             <label for="quantity">Quantity</label>
                             <?php
-                            if ($_SESSION["username"] == "admin") {
+                            if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") {
                                 echo "<input type='number' id='updateQuantity' data-id='" . $record["Id"] . "' class='form-control w-25'>";
                             } else {
                                 $select = "<select name='quantity' id='selectedQuantity' class='w-25 form-select'>";
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="form w-50 pt-4 font-size-16 font-baloo">
                             <div class="col">
                                 <?php
-                                if ($_SESSION["username"] != "admin") {
+                                if (isset($_SESSION["username"]) && $_SESSION["username"] != "admin") {
                                     echo "<button type='submit' name='btnBuyNow' class='btn btn-dark form-control'>Buy now</button>";
                                 } else {
                                     echo "<button type='submit' name='btnSave' class='btn btn-dark form-control'>Save</button>";
@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <input type='hidden' name='productId' value='<?php echo $record["Id"]; ?>'>
                                 <?php
                                 if (isset($_SESSION["userId"])) {
-                                    if ($_SESSION["username"] == "admin") {
+                                    if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") {
                                         echo "<button type='submit' name='btnDeleteItem' class='btn btn-danger form-control'>Delete</button>";
                                     } else {
                                         echo "<button type='submit' name='btnAddToCart' class='btn btn-primary form-control'>Add to cart</button>";

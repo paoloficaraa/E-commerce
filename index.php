@@ -122,8 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     </svg>
                                 </a>
                                 <?php
-                                if ($_SESSION["username"] == "admin") {
-                                    echo "<a href='addProduct.php'><i class='bi bi-box-arrow-in-up'></i></a>";
+                                if(isset($_SESSION["username"])){
+                                    if ($_SESSION["username"] == "admin") {
+                                        echo "<a href='insertProduct.php'><i class='bi bi-box-arrow-in-up'></i></a>";
+                                    }
                                 }
                                 ?>
                             </div>
@@ -148,13 +150,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </div>
                         <!-- End Hero Text -->
                         <!-- Start Search Form -->
-                        <form action="" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
+                        <form action="search.php" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
 
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12 p-0">
                                     <div class="search-input">
                                         <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
-                                        <input type="text" name="keyword" id="keyword" placeholder="Product">
+                                        <input type="text" name="product" id="keyword" placeholder="Product">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-12 p-0">
@@ -174,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-12 p-0">
                                     <div class="search-btn button">
-                                        <button class="btn"><i class="lni lni-search-alt"></i>Search</button>
+                                        <button class="btn" type="submit"><i class="lni lni-search-alt"></i>Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     </div>";
                                 echo $element;
                             } else {
-                                header("location:404.html");
+                                //header("location:404.html");
                             }
                             $item++;
                         }
