@@ -66,7 +66,7 @@
                                 <span class="toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul id="nav" class="navbar-nav ms-auto">
+                                <!-- <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="index.php"
                                             data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
@@ -76,7 +76,7 @@
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" aria-label="Toggle navigation">Categories</a>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div> <!-- navbar collapse -->
                         </nav> <!-- navbar -->
                     </div>

@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <span class="toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul id="nav" class="navbar-nav ms-auto">
+                                <!-- <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
                                         <a class=" active dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home
                                         </a>
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div> <!-- navbar collapse -->
                             <div class="login-button">
                                 <ul>
@@ -116,11 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     </svg>
                                 </a>
 
-                                <a href="wishList.php" class="navbar-brand">
+                                <!-- <a href="wishList.php" class="navbar-brand">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                         <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                                     </svg>
-                                </a>
+                                </a> -->
                                 <?php
                                 if(isset($_SESSION["username"])){
                                     if ($_SESSION["username"] == "admin") {
@@ -153,28 +153,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <form action="search.php" class="search-form wow fadeInUp" method="get" data-wow-delay=".7s">
 
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12 p-0">
+                                <div class="col-lg-6 col-md-6 col-12 p-0">
                                     <div class="search-input">
                                         <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
                                         <input type="text" name="product" id="keyword" placeholder="Product">
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-12 p-0">
+                                <!-- <div class="col-lg-3 col-md-3 col-12 p-0">
                                     <div class="search-input">
                                         <label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
                                         <select name="category" id="category">
                                             <option value="none" selected disabled>Categories</option>
-                                            <!--da aggiungere dinamicamente con phpp-->
-                                        </select>
+                                            <!--da aggiungere dinamicamente con php-->
+                                        <!-- </select>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-12 p-0">
+                                </div> -->
+                                <!-- <div class="col-lg-3 col-md-3 col-12 p-0">
                                     <div class="search-input">
                                         <label for="price"><i class="lni lni-search-alt theme-color"></i></label>
                                         <input type="number" name="price" id="price" placeholder="Price">
                                     </div>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-12 p-0">
+                                </div> --> 
+                                <div class="col-lg-6 col-md-6 col-12 p-0">
                                     <div class="search-btn button">
                                         <button class="btn" type="submit"><i class="lni lni-search-alt"></i>Search</button>
                                     </div>
@@ -191,36 +191,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- End Hero Area -->
 
     <!-- Start Categories Area -->
-    <section class="categories">
+    <!-- <section class="categories">
         <div class="container">
             <div class="cat-inner">
                 <div class="row">
                     <div class="col-12 p-0">
                         <div class="category-slider">
                             <?php
-                            $query = "SELECT * FROM categories";
-                            $result = $conn->query($query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "
-                                        <a href='category.php?name=" . $row["name"] . "' class='single-cat'>
-                                            <div>
-                                                <img src='" . $row["thumbnail"] . "' alt='#' style='width:50px; height:50px'>
-                                            </div>
-                                            <h3>" . $row["name"] . "</h3>
-                                        </a>
-                                        ";
-                                }
-                            } else {
-                                header("404.html");
-                            }
+                            // $query = "SELECT * FROM categories";
+                            // $result = $conn->query($query);
+                            // if ($result->num_rows > 0) {
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         echo "
+                            //             <a href='category.php?name=" . $row["name"] . "' class='single-cat'>
+                            //                 <div>
+                            //                     <img src='" . $row["thumbnail"] . "' alt='#' style='width:50px; height:50px'>
+                            //                 </div>
+                            //                 <h3>" . $row["name"] . "</h3>
+                            //             </a>
+                            //             ";
+                            //     }
+                            // } else {
+                            //     header("404.html");
+                            // }
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- /End Categories Area -->
 
     <!-- Start Items Grid Area -->
@@ -275,7 +275,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                 </center>
                                                 <div class='bottom-content'>
                                                     <p class='price'>Start From: <span>" . $row["Price"] . " ple</span></p>
-                                                    <a href='javascript:void(0)' class='like'><i class='lni lni-heart'></i></a>
                                                 </div>
                                             </div>
                                         </div>
