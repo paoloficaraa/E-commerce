@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 18, 2022 alle 12:41
--- Versione del server: 10.4.6-MariaDB
--- Versione PHP: 7.3.8
+-- Generation Time: May 23, 2022 at 10:07 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -33,24 +32,20 @@ CREATE TABLE `cart` (
   `UserId` int(11) NOT NULL,
   `productId` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `Updated` datetime NOT NULL
+  `Updated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `cart`
+-- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`Id`, `UserId`, `productId`, `quantity`, `Updated`) VALUES
-(4, 12, 3, 1, '0000-00-00 00:00:00'),
-(5, 1, 1, 1, '0000-00-00 00:00:00'),
-(6, 1, 3, 1, '0000-00-00 00:00:00'),
-(7, 1, 2, 1, '0000-00-00 00:00:00'),
-(9, 12, 1, 2, '0000-00-00 00:00:00');
+(3, 1, 1, 1, '2022-05-16 16:24:17');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -61,7 +56,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`Id`, `name`, `description`, `thumbnail`) VALUES
@@ -78,27 +73,28 @@ INSERT INTO `categories` (`Id`, `name`, `description`, `thumbnail`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `order_details`
+-- Table structure for table `order_details`
 --
 
 CREATE TABLE `order_details` (
   `Id` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
-  `Total` float NOT NULL,
+  `Total` int(5) NOT NULL,
   `Date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `order_details`
+-- Dumping data for table `order_details`
 --
 
 INSERT INTO `order_details` (`Id`, `UserId`, `Total`, `Date`) VALUES
-(5, 12, 10100, '2022-05-13 13:57:54');
+(23, 2, 975, '2022-05-23 21:56:11'),
+(24, 2, 5300, '2022-05-23 22:05:11');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -108,10 +104,20 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`Id`, `OrderId`, `productId`, `quantity`) VALUES
+(5, 23, 2, 2),
+(6, 23, 3, 12),
+(7, 24, 3, 1),
+(8, 24, 1, 1);
+
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -124,19 +130,18 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`Id`, `Name`, `Description`, `Price`, `Quantity`, `thumbnail`) VALUES
-(1, 'telefono', 'Il più funzionante del mondo', 5000, 50, 'assets/images/products/telefono.jpg'),
-(2, 'palla', 'Palla usata da Ronaldinho', 25, 500, 'assets/images/products/palla.jpg'),
-(3, 'maglia BILAN', 'la migliore non scherziamo', 100, 200, 'assets/images/products/maglia.jpg'),
-(10, 'tastiera', 'tastiera bella', 60, 100, 'https://omniutech.it/wp-content/uploads/2020/07/61yezxhUwGL._AC_SL1500_.jpg');
+(1, 'telefono', 'il miglior telefono della storia', 5000, 79, 'assets\\images\\products\\telefono.jpg'),
+(2, 'palla', 'questa è una palla molto bella', 25, 147, 'assets/images/products/palla.jpg'),
+(3, 'maglia', 'bellissima maglia daje', 300, 486, 'assets/images/products/maglia.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `product_categories`
+-- Table structure for table `product_categories`
 --
 
 CREATE TABLE `product_categories` (
@@ -146,19 +151,18 @@ CREATE TABLE `product_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `product_categories`
+-- Dumping data for table `product_categories`
 --
 
 INSERT INTO `product_categories` (`Id`, `productId`, `categoryId`) VALUES
 (1, 1, 1),
 (2, 2, 9),
-(3, 3, 9),
-(5, 10, 1);
+(3, 3, 4);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -168,139 +172,139 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`Id`, `Username`, `Password`) VALUES
 (1, 'paolo', '5f4dcc3b5aa765d61d8327deb882cf99'),
-(12, 'giorgia', '63bddf0cbc21d36c8c19808e22784df2'),
-(13, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+(2, 'giorgia', '63bddf0cbc21d36c8c19808e22784df2'),
+(3, 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `cart_ibfk_1` (`UserId`),
-  ADD KEY `cart_ibfk_2` (`productId`);
+  ADD KEY `UserId` (`UserId`),
+  ADD KEY `productId` (`productId`);
 
 --
--- Indici per le tabelle `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indici per le tabelle `order_details`
+-- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `order_details_ibfk_1` (`UserId`);
+  ADD KEY `UserId` (`UserId`);
 
 --
--- Indici per le tabelle `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `order_items_ibfk_1` (`productId`),
-  ADD KEY `order_items_ibfk_2` (`OrderId`);
+  ADD KEY `productId` (`productId`),
+  ADD KEY `OrderId` (`OrderId`);
 
 --
--- Indici per le tabelle `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indici per le tabelle `product_categories`
+-- Indexes for table `product_categories`
 --
 ALTER TABLE `product_categories`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `product_categories_ibfk_1` (`productId`),
-  ADD KEY `product_categories_ibfk_2` (`categoryId`);
+  ADD KEY `productId` (`productId`),
+  ADD KEY `categoryId` (`categoryId`);
 
 --
--- Indici per le tabelle `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Id`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la tabella `cart`
+-- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT per la tabella `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `Id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT per la tabella `order_details`
+-- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT per la tabella `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT per la tabella `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT per la tabella `product_categories`
+-- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `Id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT per la tabella `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Limiti per le tabelle scaricate
+-- Constraints for dumped tables
 --
 
 --
--- Limiti per la tabella `cart`
+-- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `order_details`
+-- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `products` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`OrderId`) REFERENCES `order_details` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `product_categories`
+-- Constraints for table `product_categories`
 --
 ALTER TABLE `product_categories`
   ADD CONSTRAINT `product_categories_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `products` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,

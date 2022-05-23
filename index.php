@@ -7,8 +7,11 @@ require_once "classCart.php";
 ob_start();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST["btnAddToCart"]))
+    if (isset($_POST["btnAddToCart"])){
         $Cart->addToCart($_SESSION["userId"], $_POST["productId"], 1);
+        echo "<script>alert('aggiunto')</script>";
+    }
+        
     if (isset($_POST["btnDeleteItem"])) {
         $conn->query("DELETE FROM products WHERE Id = " . $_POST["productId"]);
     }

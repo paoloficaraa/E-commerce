@@ -7,7 +7,7 @@ if (isset($_SESSION["cart"])) {
     $userId = 0;
     if(isset($_SESSION["userId"]))
         $userId = $_SESSION["userId"];
-    
+
     if($userId == 0){
         echo "<script>alert('You have to log in');</script>";
         header("location:index.php?mess=error_user");
@@ -15,7 +15,7 @@ if (isset($_SESSION["cart"])) {
     }
 
     $total = $_POST["total"];
-    $insertOrder->bind_param("si", $userId, $total);
+    $insertOrder->bind_param("ii", $userId, $total);
 
     if ($insertOrder->execute() === true) {
         $query = "SELECT Id FROM order_details ORDER BY Id DESC LIMIT 1;";

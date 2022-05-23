@@ -180,6 +180,9 @@ $_SESSION["cart"] = $shoppingCart;
     <!-- Start Shopping cart section -->
     <section class="py-3">
         <div class="container-fluid w-75 wow fadeInUp" data-wow-delay=".4s">
+            <br>
+            <br>
+            <br>
             <h5 class="font-baloo font-size-20">Shopping cart</h5>
             <!-- Cart item -->
             <div class="row">
@@ -251,8 +254,9 @@ $_SESSION["cart"] = $shoppingCart;
                     </div>
                 </div>
             </div>
-
-
+            <br>
+            <br>
+            <br>
         </div>
     </section>
     <!--/ End Shopping cart section -->
